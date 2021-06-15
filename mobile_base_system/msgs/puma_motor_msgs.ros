@@ -1,0 +1,8 @@
+PackageSet{
+    Package puma_motor_msgs{ Specs { 
+      TopicSpec Feedback{ message { uint8 device_number string device_name float32 duty_cycle float32 current float64 travel float64 speed float64 setpoint }},
+      TopicSpec MultiFeedback{ message { Header header "puma_motor_msgs.Feedback"[] drivers_feedback }},
+      TopicSpec MultiStatus{ message { Header header "puma_motor_msgs.Status"[] drivers }},
+      TopicSpec Status{ message { uint8 device_number string device_name float32 bus_voltage float32 temperature float32 output_voltage float32 analog_input uint8 MODE_VOLTAGE=0 uint8 MODE_CURRENT=1 uint8 MODE_SPEED=2 uint8 MODE_POSITION=3 uint8 MODE_VCOMP=4 uint8 mode uint8 FAULT_CURRENT=1 uint8 FAULT_TEMPERATURE=2 uint8 FAULT_BUS_VOLTAGE=4 uint8 FAULT_BRIDGE_DRIVER=8 uint8 fault }}
+    }}
+}

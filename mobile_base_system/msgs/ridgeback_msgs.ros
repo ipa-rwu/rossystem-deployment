@@ -1,0 +1,8 @@
+PackageSet{ 
+    Package ridgeback_msgs{ Specs { 
+      TopicSpec Fans{ message { uint8 EQUIPMENT_BAY_INTAKE=0 uint8 EQUIPMENT_BAY_EXHAUST=1 uint8 CHARGER_BAY_INTAKE=2 uint8 CHARGER_BAY_EXHAUST=3 uint8 USER_BAY_INTAKE=4 uint8 USER_BAY_EXHAUST=5 uint8 FAN_OFF=0 uint8 FAN_ON_HIGH=1 uint8 FAN_ON_LOW=2 uint8[] fans }},
+      TopicSpec Lights{ message { uint8 LIGHTS_FRONT_LEFT_UPPER=0 uint8 LIGHTS_FRONT_LEFT_LOWER=1 uint8 LIGHTS_FRONT_RIGHT_UPPER=2 uint8 LIGHTS_FRONT_RIGHT_LOWER=3 uint8 LIGHTS_REAR_LEFT_UPPER=4 uint8 LIGHTS_REAR_LEFT_LOWER=5 uint8 LIGHTS_REAR_RIGHT_UPPER=6 uint8 LIGHTS_REAR_RIGHT_LOWER=7 "ridgeback_msgs.RGB"[] lights }},
+      TopicSpec RGB{ message { float32 red float32 green float32 blue }},
+      TopicSpec Status{ message { Header header string hardware_id duration mcu_uptime duration connection_uptime float32 pcb_temperature float32 mcu_temperature bool stop_power_status bool stop_engaged bool drivers_active bool external_stop_present bool charger_connected bool charging_complete float32 measured_battery float32 measured_12v float32 measured_5v float32 measured_inverter float32 measured_front_axle float32 measured_rear_axle float32 measured_light float32 total_current float32 total_current_peak float64 total_power_consumed }}
+    }}
+  }

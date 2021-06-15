@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="cob_sick_s300" type="cob_sick_s300" name="scan_front" ns="scan_front" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="cob_sick_s300" type="cob_sick_s300" name="scan_rear" ns="scan_rear" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="ridgeback_base" type="ridgeback_node" name="base_driver" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="move_base" type="move_base" name="move_base" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="cob_scan_unifier" type="scan_unifier_node" name="scan_unifier" cwd="node" respawn="false" output="screen">
+    <remap from='scan_unified' to='scan' />
+    <remap from='scan1' to='scan_front/scan' />
+    <remap from='scan2' to='scan_rear/scan' />
+  </node>
+
+</launch>
