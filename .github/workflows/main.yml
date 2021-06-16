@@ -5,7 +5,7 @@ on: [push]
 env:
   DOCKER_BUILD: docker build --cache-from $TARGET --cache-from $TARGET_LATEST --build-arg SUFFIX --build-arg PREFIX -t ${PREFIX}${NAME}${SUFFIX} ${FOLDER}
   REGISTRY: localhost:5000
-  PREFIX: ""
+  PREFIX: "${{REGISTRY}}:"
   SUFFIX: ""
 jobs:
   builder:
@@ -51,7 +51,60 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./builder
+          context: ./${{ github.job }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+      -
+        name: Inspect
+        run: |
+          docker buildx imagetools inspect ${{ steps.meta.outputs.tags }}
+  base_nav:
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    needs: builder
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: network=host
+      -
+        name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{env.REGISTRY}}/${{ github.job }}
+          flavor: |
+            latest=auto
+            prefix=
+            suffix=
+          tags: |
+            type=ref,event=branch
+      -
+        name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        env:
+          PREFIX: ${{env.PREFIX}}
+        with:
+          context: ./mobile_base_system/src-gen/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
       -
