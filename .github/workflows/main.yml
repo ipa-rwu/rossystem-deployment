@@ -5,7 +5,7 @@ on: [push]
 env:
   DOCKER_BUILD: docker build --cache-from $TARGET --cache-from $TARGET_LATEST --build-arg SUFFIX --build-arg PREFIX -t ${PREFIX}${NAME}${SUFFIX} ${FOLDER}
   REGISTRY: localhost:5000
-  PREFIX: "${{REGISTRY}}:"
+  PREFIX: "localhost:5000:"
   SUFFIX: ""
 jobs:
   builder:
