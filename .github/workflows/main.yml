@@ -104,7 +104,7 @@ jobs:
         env:
           PREFIX: ${{env.PREFIX}}
         with:
-          context: ./mobile_base_system/src-gen/
+          context: ./mobile_base_system/src-gen
           push: true
           tags: ${{ steps.meta.outputs.tags }}
       -
