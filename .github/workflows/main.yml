@@ -58,11 +58,6 @@ jobs:
         
   base_nav:
     runs-on: ubuntu-latest
-    services:
-      registry:
-        image: registry:2
-        ports:
-          - 5000:5000
     needs: builder
     steps:
       -
@@ -99,6 +94,8 @@ jobs:
       -
         name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v5
+        env:
+          DOCKER_BUILDKIT: 1
         with:
           image: ${{ github.job }}
           tags: ${{ github.branch }}
