@@ -2,10 +2,10 @@
 ARG SUFFIX=
 ARG PREFIX=
 FROM ros:melodic-ros-core as base
-FROM ${PREFIX}extra_layer${SUFFIX} as builder
+FROM ${PREFIX}builder${SUFFIX} as builder
 
 FROM base as build
-COPY . /root/ws/src/base_nav/
+COPY * /root/ws/src/
 RUN --mount=type=bind,from=builder,target=/builder \
     apt-get update -qq && \
     /builder/workspace.bash build_workspace /root/ws && \
@@ -35,6 +35,3 @@ RUN --mount=type=bind,from=builder,target=/builder --mount=type=bind,target=/roo
     /builder/workspace.bash install_depends /root/ws && \
     rm -rf /var/lib/apt/lists/*
 COPY --from=install /opt/ros/$ROS_DISTRO /opt/ros/$ROS_DISTRO
-
-FROM deploy as launch
-CMD ["roslaunch", "base_nav", "base_nav.launch"]
