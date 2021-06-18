@@ -96,7 +96,7 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
         with:
-          image: ${{ github.job }}
+          image: ${{ env.PREFIX }}${{ github.job }}
           tags: ${{ github.branch }}
           registry: docker.io
           buildArgs: PREFIX=${{ env.PREFIX }}
@@ -105,7 +105,7 @@ jobs:
           dockerfile: ./extra_layer/Dockerfile  
   base_nav:
     runs-on: ubuntu-latest
-    needs: builder, extra_layer
+    needs: extra_layer
     steps:
       -
         name: Checkout
