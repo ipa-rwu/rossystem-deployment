@@ -37,14 +37,10 @@ jobs:
             ${{ runner.os }}-buildx-
       -
         name: Docker meta
-        id: meta
+        id: docker_meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/${{ github.job }}
-          flavor: |
-            latest=auto
-            prefix=
-            suffix=
           tags: |
             type=ref,event=branch
             type=raw,value=latest
@@ -54,7 +50,8 @@ jobs:
         with:
           context: ./${{ github.job }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
   # for non-released pkg
   extra_layer:
     runs-on: ubuntu-latest
@@ -79,18 +76,6 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{env.PREFIX}}/${{ github.job }}
-          flavor: |
-            latest=auto
-            prefix=
-            suffix=
-          tags: |
-            type=ref,event=branch
       -
         name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v5
@@ -127,18 +112,6 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{env.PREFIX}}/${{ github.job }}
-          flavor: |
-            latest=auto
-            prefix=
-            suffix=
-          tags: |
-            type=ref,event=branch
       -
         name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v5
