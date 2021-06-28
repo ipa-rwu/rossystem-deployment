@@ -145,7 +145,7 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
         with:
-          image: ${{ github.job }}
+          image: ${{ env.PREFIX }}${{ github.job }}
           tags: ${{ github.branch }}
           registry: docker.io
           buildArgs: PREFIX=${{ env.PREFIX }}, SUFFIX=:${{ github.branch }}
