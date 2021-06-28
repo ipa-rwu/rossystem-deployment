@@ -81,17 +81,17 @@ jobs:
         with:
           driver-opts: network=host
       -
+        name: Get Branch
+        id: extract_branch
+        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
+      -
         name: Cache Docker layers
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-${{ steps.extract_branch.outputs.branch }}-${{ github.job }}
           restore-keys: |
-            ${{ runner.os }}-buildx-
-      -
-        name: Get Branch
-        id: extract_branch
-        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
+            ${{ runner.os }}-buildx-${{ steps.extract_branch.outputs.branch }}
       -
         name: Docker meta
         id: docker_meta
@@ -143,17 +143,17 @@ jobs:
         with:
           driver-opts: network=host
       -
+        name: Get Branch
+        id: extract_branch
+        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
+      -
         name: Cache Docker layers
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-${{ steps.extract_branch.outputs.branch }}-${{ github.job }}
           restore-keys: |
-            ${{ runner.os }}-buildx-
-      -
-        name: Get Branch
-        id: extract_branch
-        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
+            ${{ runner.os }}-buildx-${{ steps.extract_branch.outputs.branch }}
       -
         name: Docker meta
         id: docker_meta
