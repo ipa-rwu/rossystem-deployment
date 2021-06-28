@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:experimental
 ARG SUFFIX=
 ARG PREFIX=
-FROM ros:melodic-ros-core as base
-FROM ${PREFIX}extra_layer${SUFFIX} as builder
+FROM ${PREFIX}extra_layer${SUFFIX} as base
+FROM ${PREFIX}builder${SUFFIX} as builder
 
 FROM base as build
 COPY . /root/ws/src/base_nav/
