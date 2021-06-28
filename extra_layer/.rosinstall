@@ -1,0 +1,2 @@
+- git: {local-name: puma_motor_driver, uri: 'https://github.com/clearpathrobotics/puma_motor_driver.git', version: melodic-devel}
+- git: {local-name: ridgeback_robot, uri: 'https://github.com/ipa-rwu/ridgeback_robot.git', version: rm_ridgeback_firmware}
