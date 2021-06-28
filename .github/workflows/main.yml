@@ -77,18 +77,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       -
+        name: Docker meta
+        id: docker_meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/${{ github.job }}
+          tags: |
+            type=ref,event=branch
+            type=raw,value=latest
+      -
         name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v5
+        uses: docker/build-push-action@v2
         env:
           DOCKER_BUILDKIT: 1
         with:
-          image: ${{ env.PREFIX }}${{ github.job }}
-          tags: ${{ github.branch }}
-          registry: docker.io
-          buildArgs: PREFIX=${{ env.PREFIX }}
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          dockerfile: ./extra_layer/Dockerfile
+          context: ./${{ github.job }}
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          build-args: |
+                    "PREFIX={{ env.PREFIX }}"
+                    "SUFFIX=:${{ github.branch }}"
   base_nav:
     runs-on: ubuntu-latest
     needs: extra_layer
