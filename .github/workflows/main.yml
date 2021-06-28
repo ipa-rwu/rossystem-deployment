@@ -121,7 +121,7 @@ jobs:
           image: ${{ env.PREFIX }}${{ github.job }}
           tags: ${{ github.branch }}
           registry: docker.io
-          buildArgs: PREFIX=${{ env.PREFIX }}, SUFFIX=:${{ github.branch }}
+          buildArgs: PREFIX=${{ env.PREFIX }}, SUFFIX=\:\${{ github.branch }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: ./mobile_base_system/src-gen/base_nav/Dockerfile
