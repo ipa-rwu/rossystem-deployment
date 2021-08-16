@@ -1,0 +1,7 @@
+PackageSet {
+  CatkinPackage turtlebot3_teleop_pkg {
+    Artifact /turtlebot3_teleop_keyboard {
+      Node { name /turtlebot3_teleop_keyboard
+        Publishers {
+          Publisher { name '/cmd_vel' message 'geometry_msgs.Twist'}}}
+}}}

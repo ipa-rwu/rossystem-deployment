@@ -1,0 +1,15 @@
+PackageSet {
+  CatkinPackage turtlebot_sim {
+    Artifact /robot_state_publisher {
+      Node { name /robot_state_publisher
+        Subscribers {
+          Subscriber { name '/joint_states' message 'sensor_msgs.JointState'}}}
+},
+    Artifact /turtlebot3_fake_node {
+      Node { name /turtlebot3_fake_node
+        Publishers {
+          Publisher { name '/joint_states' message 'sensor_msgs.JointState'},
+          Publisher { name '/odom' message 'nav_msgs.Odometry'}}
+        Subscribers {
+          Subscriber { name '/cmd_vel' message 'geometry_msgs.Twist'}}}
+}}}

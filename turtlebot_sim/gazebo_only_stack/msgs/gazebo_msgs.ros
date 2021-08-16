@@ -1,0 +1,30 @@
+PackageSet{
+    Package gazebo_msgs{ Specs { 
+      TopicSpec LinkStates{},
+      TopicSpec ModelStates{},
+      TopicSpec ModelState{},
+      TopicSpec LinkState{},
+      ServiceSpec SetJointProperties{},
+      ServiceSpec JointRequest{},
+      ServiceSpec SetLinkProperties{},
+      ServiceSpec GetModelProperties{},
+      ServiceSpec SetModelConfiguration{},
+      ServiceSpec ApplyBodyWrench{},
+      ServiceSpec GetWorldProperties{},
+      ServiceSpec DeleteModel{},
+      ServiceSpec DeleteLight{},
+      ServiceSpec SpawnModel{},
+      ServiceSpec GetLightProperties{},
+      ServiceSpec GetLinkState{},
+      ServiceSpec BodyRequest{},
+      ServiceSpec SetLightProperties{},
+      ServiceSpec SetPhysicsProperties{},
+      ServiceSpec GetLinkProperties{},
+      ServiceSpec GetModelState{},
+      ServiceSpec GetJointProperties{},
+      ServiceSpec ApplyJointEffort{},
+      ServiceSpec GetPhysicsProperties{},
+      ServiceSpec SetModelState{},
+      ServiceSpec SetLinkState{}
+    }}
+}

@@ -1,0 +1,11 @@
+RosSystem { Name 'turtlebot3_teleop_keyboard'
+    RosComponents (
+
+        ComponentInterface { name '/turtlebot3_teleop_keyboard'
+            RosPublishers {
+                RosPublisher '/cmd_vel' {RefPublisher 'turtlebot3_teleop_pkg./turtlebot3_teleop_keyboard./turtlebot3_teleop_keyboard./cmd_vel'}}
+        }
+)
+        Parameters {
+          Parameter { name '/model' type String value 'burger'}}
+}

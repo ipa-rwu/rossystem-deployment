@@ -1,0 +1,18 @@
+RosSystem { Name 'turtlebot_fake'
+    RosComponents (
+
+        ComponentInterface { name '/turtlebot3_fake_node'
+            RosPublishers {
+                RosPublisher '/odom' {RefPublisher 'turtlebot_sim./turtlebot3_fake_node./turtlebot3_fake_node./odom'},
+                RosPublisher '/joint_states' {RefPublisher 'turtlebot_sim./turtlebot3_fake_node./turtlebot3_fake_node./joint_states'}}
+            RosSubscribers {
+                RosSubscriber '/cmd_vel' {RefSubscriber 'turtlebot_sim./turtlebot3_fake_node./turtlebot3_fake_node./cmd_vel'}}
+        },
+
+        ComponentInterface { name '/robot_state_publisher'
+          RosSubscribers {
+                RosSubscriber '/joint_states' {RefSubscriber 'turtlebot_sim./robot_state_publisher./robot_state_publisher./joint_states'}}
+        }
+)
+
+}

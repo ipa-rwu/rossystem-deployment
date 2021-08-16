@@ -1,0 +1,35 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+
+services:
+  ros-master:
+    image: ros:melodic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  turtlebot_sim:
+    image: "rachelwu/turtlebot_sim_stack:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=turtlebot_sim"
+    command: stdbuf -o L roslaunch turtlebot_sim turtlebot_sim.launch --wait
+    networks:
+      - ros
+
+  teleop_keyboard:
+    image: "rachelwu/turtlebot3_teleop_keyboard_stack:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=teleop_keyboard"
+    stdin_open: true
+    tty: true
+    command: stdbuf -o L roslaunch turtlebot3_teleop_keyboard turtlebot3_teleop_keyboard.launch --wait
+    networks:
+      - ros

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="/model" value="burger"/>
+  <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" cwd="node" respawn="false" output="screen">
+  </node>
+</launch>

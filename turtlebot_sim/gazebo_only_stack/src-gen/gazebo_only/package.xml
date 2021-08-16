@@ -1,0 +1,21 @@
+<package format="2">
+  <name>gazebo_only</name>
+  <version>0.0.1</version>
+  <description>This package provides launch file for operating gazebo_only</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://wiki.ros.org/</url>
+
+
+  <maintainer email="jane.doe@example.com">Jane Doe</maintainer>
+  <author email="jane.doe@example.com">Jane Doe</author>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>turtlebot3_description</exec_depend>
+  <exec_depend>turtlebot3_gazebo</exec_depend>
+  <!--test_depend>roslaunch</test_depend-->
+
+</package>
