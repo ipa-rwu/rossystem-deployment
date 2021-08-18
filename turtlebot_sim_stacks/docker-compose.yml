@@ -1,0 +1,33 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+
+services:
+  ros-master:
+    image: ros:melodic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  turtlebot_sim_stacks_sim_without_gazebo:
+    image: "turtlebot_sim_stacks_sim_without_gazebo:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=sim_without_gazebo"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch turtlebot_sim_stacks_sim_without_gazebo sim_without_gazebo.launch --wait
+
+  turtlebot_sim_stacks_control:
+    image: "turtlebot_sim_stacks_control:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=control"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch turtlebot_sim_stacks_control control.launch --wait
