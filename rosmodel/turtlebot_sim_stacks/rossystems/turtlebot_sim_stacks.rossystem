@@ -1,0 +1,32 @@
+RosSystem { Name 'turtlebot_sim_stacks' 
+	RosComponentStacks (
+		ComponentStack {
+			name sim_without_gazebo 
+		    RosComponents ( 
+		        ComponentInterface { name 'turtlebot3_fake_node'
+		            RosPublishers {
+		                RosPublisher '/odom' {RefPublisher 'turtlebot3_fake.turtlebot3_fake_node.turtlebot3_fake_node.odom'},
+		                RosPublisher '/joint_states' {RefPublisher 'turtlebot3_fake.turtlebot3_fake_node.turtlebot3_fake_node.joint_states'}}
+		            RosSubscribers {
+		                RosSubscriber '/cmd_vel' {RefSubscriber 'turtlebot3_fake.turtlebot3_fake_node.turtlebot3_fake_node.cmd_vel'}}
+		        },
+	  			ComponentInterface { name robot_state_publisher FromRosNode "robot_state_publisher.robot_state_publisher.robot_state_publisher" 
+				  	RosSubscribers { 
+				  		RosSubscriber joint_states { RefSubscriber "robot_state_publisher.robot_state_publisher.robot_state_publisher.joint_states" } }
+		  			RosParameters {
+                		RosParameter 'publish_frequency' {RefParameter 'robot_state_publisher.robot_state_publisher.robot_state_publisher.publish_frequency' value 50.00}}}
+			)
+		},
+		ComponentStack {
+			name control 
+			RosComponents ( 
+        		ComponentInterface { name 'turtlebot3_teleop_keyboard'
+		            RosPublishers {
+		                RosPublisher '/cmd_vel' {RefPublisher 'turtlebot3_teleop.turtlebot3_teleop_key.turtlebot3_teleop_key.cmd_vel'}}
+            		RosParameters {
+                	RosParameter '/model' {RefParameter 'turtlebot3_teleop.turtlebot3_teleop_key.turtlebot3_teleop_key.model' value burger}}}
+		    )
+		}
+			
+	)
+}

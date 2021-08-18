@@ -1,0 +1,10 @@
+PackageSet {
+  CatkinPackage turtlebot3_teleop {
+    Artifact turtlebot3_teleop_key {
+      Node { name turtlebot3_teleop_key
+        Publishers {
+          Publisher { name 'cmd_vel' message 'geometry_msgs.Twist'}
+          }
+      Parameters {
+          Parameter { name 'model' type String }}}}
+}}
