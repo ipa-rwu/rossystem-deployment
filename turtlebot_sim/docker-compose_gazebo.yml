@@ -1,0 +1,44 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+
+services:
+  ros-master:
+    image: ros:melodic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  gazebo_only:
+    image: "rachelwu/gazebo_only:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=gazebo_only"
+      - "XAUTHORITY=$XAUTH"
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - $XAUTH:$XAUTH
+    devices:
+      - /dev/dri:/dev/dri:rw
+    stdin_open: true
+    tty: true
+    command: stdbuf -o L roslaunch turtlebot_fake turtlebot_fake.launch --wait
+    networks:
+      - ros
+
+  teleop_keyboard:
+    image: "rachelwu/teleop_keyboard:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=teleop_keyboard"
+    stdin_open: true
+    tty: true
+    networks:
+      - ros

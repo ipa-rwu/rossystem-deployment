@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="turtlebot3_faketurtlebot3_fake" type="turtlebot3_fake_node" name="turtlebot3_fake_node" cwd="node" respawn="false" output="screen">
+    <remap from='odom' to='/odom' />
+    <remap from='joint_states' to='/joint_states' />
+    <remap from='cmd_vel' to='/cmd_vel' />
+  </node>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" cwd="node" respawn="false" output="screen">
+    <param name="publish_frequency" type="double" value="50.0" />
+  </node>
+
+</launch>
