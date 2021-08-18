@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <launch>
+  <include file="$(find turtlebot3_bringup)/launch/includes/description.launch.xml">
+      <arg name="model" value="burger" />
+  </include>
+
   <node pkg="turtlebot3_faketurtlebot3_fake" type="turtlebot3_fake_node" name="turtlebot3_fake_node" cwd="node" respawn="false" output="screen">
     <remap from='odom' to='/odom' />
     <remap from='joint_states' to='/joint_states' />
