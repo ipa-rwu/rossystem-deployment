@@ -1,0 +1,19 @@
+ComponentInterface { name teleop_node
+	FromRosNode "teleop_twist_joy.teleop_node.teleop_node"
+	RosPublishers{
+		RosPublisher "cmd_vel" { RefPublisher "teleop_twist_joy.teleop_node.teleop_node.cmd_vel"}
+	}
+	RosSubscribers{
+		RosSubscriber "joy" { RefSubscriber "teleop_twist_joy.teleop_node.teleop_node.joy"}
+	}
+	
+		RosParameters{
+			RosParameter "teleop_twist_joy/enable_button" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/enable_button"},
+			RosParameter "teleop_twist_joy/scale_angular" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/scale_angular"},
+			RosParameter "teleop_twist_joy/enable_turbo_button" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/enable_turbo_button"},
+			RosParameter "teleop_twist_joy/scale_linear" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/scale_linear"},
+			RosParameter "teleop_twist_joy/scale_linear_turbo" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/scale_linear_turbo"},
+			RosParameter "teleop_twist_joy/axis_angular" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/axis_angular"},
+			RosParameter "teleop_twist_joy/axis_linear" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.teleop_twist_joy/axis_linear"}
+		}
+}

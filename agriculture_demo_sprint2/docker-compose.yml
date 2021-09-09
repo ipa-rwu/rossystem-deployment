@@ -1,0 +1,23 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+    
+services:
+  ros-master:
+    image: ros:melodic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  agriculture_demo_sprint2:
+    image: "agriculture_demo_sprint2:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=agriculture_demo_sprint2"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch agriculture_demo_sprint2 agriculture_demo_sprint2.launch --wait
+

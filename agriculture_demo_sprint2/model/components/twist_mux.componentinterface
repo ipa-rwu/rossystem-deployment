@@ -1,0 +1,11 @@
+ComponentInterface { name twist_mux
+	FromRosNode "twist_mux.twist_mux.twist_mux"
+	RosPublishers{
+		RosPublisher "cmd_vel_out" { RefPublisher "twist_mux.twist_mux.twist_mux.cmd_vel_out"}
+	}
+	RosSubscribers{
+		RosSubscriber "?" { RefSubscriber "twist_mux.twist_mux.twist_mux.?"},
+		RosSubscriber "?" { RefSubscriber "twist_mux.twist_mux.twist_mux.?"}
+	}
+	
+}

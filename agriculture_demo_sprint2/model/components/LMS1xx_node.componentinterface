@@ -1,0 +1,13 @@
+ComponentInterface { name LMS1xx_node
+	FromRosNode "lms1xx.LMS1xx_node.LMS1xx_node"
+	RosPublishers{
+		RosPublisher "scan" { RefPublisher "lms1xx.LMS1xx_node.LMS1xx_node.scan"}
+	}
+	
+		RosParameters{
+			RosParameter "port" { RefParameter "lms1xx.LMS1xx_node.LMS1xx_node.port"},
+			RosParameter "host" { RefParameter "lms1xx.LMS1xx_node.LMS1xx_node.host"},
+			RosParameter "publish_min_range_as_inf" { RefParameter "lms1xx.LMS1xx_node.LMS1xx_node.publish_min_range_as_inf"},
+			RosParameter "frame_id" { RefParameter "lms1xx.LMS1xx_node.LMS1xx_node.frame_id"}
+		}
+}
