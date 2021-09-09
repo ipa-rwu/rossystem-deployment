@@ -1,8 +1,9 @@
 # syntax=docker/dockerfile:experimental
 ARG SUFFIX=
+ARG BUILDER_SUFFIX=
 ARG PREFIX=
 FROM ${PREFIX}extra_layer_agriculture_demo_sprint2${SUFFIX} as base
-FROM ${PREFIX}builder${SUFFIX} as builder
+FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
 FROM base as build
 COPY . /root/ws/src/agriculture_demo_sprint2/
