@@ -1,4 +1,4 @@
-name: ci
+name: mobile_base_system
 
 on: [push]
 
@@ -106,7 +106,7 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
         with:
-          context: ./${{ github.job }}
+          context: ./mobile_base_system/src-gen/base_nav/${{ github.job }}
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
