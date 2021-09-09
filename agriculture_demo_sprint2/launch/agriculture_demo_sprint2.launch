@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="diagnostic_aggregator" type="aggregator_node" name="aggregator_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="image_proc" type="image_proc" name="image_proc" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="jackal_base" type="jackal_node" name="jackal_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="joy" type="joy_node" name="joy_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="lms1xx" type="LMS1xx_node" name="LMS1xx_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="marker_server" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="nmea_navsat_driver" type="nmea_topic_driver" name="nmea_topic_driver" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="nmea_comms" type="serial_node" name="serial_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="urg_node" type="urg_node" name="urg_node" cwd="node" respawn="false" output="screen">
+  </node>
+
+</launch>
