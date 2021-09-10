@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(turtlebot_sim_stacks)
+project(turtlebot_teleop_system)
 
 find_package(catkin REQUIRED)
 

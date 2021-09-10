@@ -1,11 +1,12 @@
 # syntax=docker/dockerfile:experimental
 ARG SUFFIX=
+ARG BUILDER_SUFFIX=:melodic
 ARG PREFIX=
 FROM ros:melodic-ros-core as base
-FROM ${PREFIX}builder${SUFFIX} as builder
+FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
 FROM base as build
-COPY . /root/ws/src/turtlebot_sim_stacks/
+COPY . /root/ws/src/turtlebot_teleop_system/
 RUN --mount=type=bind,from=builder,target=/builder \
     apt-get update -qq && \
     /builder/workspace.bash build_workspace /root/ws && \
@@ -37,4 +38,4 @@ RUN --mount=type=bind,from=builder,target=/builder --mount=type=bind,target=/roo
 COPY --from=install /opt/ros/$ROS_DISTRO /opt/ros/$ROS_DISTRO
 
 FROM deploy as launch
-CMD ["roslaunch", "turtlebot_sim_stacks", "turtlebot_sim_stacks.launch"]
+CMD ["roslaunch", "turtlebot_teleop_system", "turtlebot_teleop_system.launch"]
