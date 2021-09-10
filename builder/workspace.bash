@@ -50,16 +50,23 @@ function build_workspace {
     apt_get_install build-essential
     setup_rosdep
     for file in "$ws/src/*.rosinstall"; do
-        echo "start" $file
-        echo "for loop:" $file
         if [ -f ${file} ]; then
-            echo "find:" $file
             if ! command -v wstool > /dev/null; then
                 apt_get_install python-wstool > /dev/null
             fi
             wstool init $ws/src/
             wstool merge -t $ws/src/ $file
             wstool update -t $ws/src/
+        fi
+    done;
+    for folder in "$ws/src"/*; do
+        if [[ -d ${folder} ]]; then
+            for file in "$ws/src/${folder}/*.rosinstall" "$ws/src/${folder}/rosinstall"; do
+                if [ -f ${file} ]; then
+            wstool merge -t $ws/src/ $file
+            wstool update -t $ws/src/
+                fi
+            done;
         fi
     done;
     resolve_depends "$ws/src" depend build_depend build_export_depend | apt_get_install
