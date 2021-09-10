@@ -5,6 +5,13 @@ set -o pipefail
 function grep_opt {
     grep "$@" || [[ $? = 1 ]]
 }
+function update_list {
+    local ws=$1; shift
+    setup_rosdep
+    if [ -f $ws/src/extra.sh ]; then
+        $ws/src/extra.sh
+    fi
+}
 function read_depends {
     local src=$1; shift
     for dt in "$@"; do
