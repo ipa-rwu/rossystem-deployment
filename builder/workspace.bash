@@ -13,7 +13,7 @@ function read_depends {
 }
 function list_packages {
     local src=$1; shift
-    "/opt/ros/$ROS_DISTRO"/env.sh catkin_topological_order --only-names "/opt/ros/$ROS_DISTRO/share"    
+    "/opt/ros/$ROS_DISTRO"/env.sh catkin_topological_order --only-names "/opt/ros/$ROS_DISTRO/share"
     "/opt/ros/$ROS_DISTRO"/env.sh catkin_topological_order --only-names "$src"
 }
 function setup_rosdep {
@@ -49,12 +49,19 @@ function build_workspace {
     local ws=$1; shift
     apt_get_install build-essential
     setup_rosdep
-    if [ -f "$ws/src/.rosinstall" ]; then
-        if ! command -v wstool > /dev/null; then
-            apt_get_install python-wstool > /dev/null
+    for file in "$ws/src/*.rosinstall"; do
+        echo "start" $file
+        echo "for loop:" $file
+        if [ -f ${file} ]; then
+            echo "find:" $file
+            if ! command -v wstool > /dev/null; then
+                apt_get_install python-wstool > /dev/null
+            fi
+            wstool init $ws/src/
+            wstool merge -t $ws/src/ $file
+            wstool update -t $ws/src/
         fi
-        wstool update -t "$ws/src/"
-     fi
+    done;
     resolve_depends "$ws/src" depend build_depend build_export_depend | apt_get_install
     resolve_depends "$ws/src" depend build_export_depend exec_depend run_depend > "$ws/DEPENDS"
     "/opt/ros/$ROS_DISTRO"/env.sh catkin_make_isolated -C "$ws" -DCATKIN_ENABLE_TESTING=0
