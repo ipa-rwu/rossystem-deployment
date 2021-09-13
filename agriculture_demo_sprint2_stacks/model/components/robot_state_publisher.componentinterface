@@ -1,0 +1,7 @@
+ComponentInterface { name robot_state_publisher
+	FromRosNode "robot_state_publisher.robot_state_publisher.robot_state_publisher"
+	RosSubscribers{
+		RosSubscriber "joint_states" { RefSubscriber "robot_state_publisher.robot_state_publisher.robot_state_publisher.joint_states"}
+	}
+	
+}

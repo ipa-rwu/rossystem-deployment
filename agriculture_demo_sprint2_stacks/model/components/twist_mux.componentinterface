@@ -1,0 +1,19 @@
+ComponentInterface { name twist_mux
+	FromRosNode "twist_mux.twist_mux.twist_mux"
+	RosPublishers{
+		RosPublisher "diagnostics" { RefPublisher "twist_mux.twist_mux.twist_mux.diagnostics"},
+		RosPublisher "cmd_vel" { RefPublisher "twist_mux.twist_mux.twist_mux.cmd_vel"}
+	}
+	RosSubscribers{
+		RosSubscriber "cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel"},
+		RosSubscriber "cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel"},
+		RosSubscriber "cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel"},
+		RosSubscriber "e_stop" { RefSubscriber "twist_mux.twist_mux.twist_mux.e_stop"},
+		RosSubscriber "cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel"}
+	}
+	
+		RosParameters{
+			RosParameter "/twist_mux/locks" { RefParameter "twist_mux.twist_mux.twist_mux./twist_mux/locks"},
+			RosParameter "/twist_mux/topics" { RefParameter "twist_mux.twist_mux.twist_mux./twist_mux/topics"}
+		}
+}
