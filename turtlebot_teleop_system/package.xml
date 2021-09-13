@@ -15,6 +15,7 @@
   <exec_depend>turtlebot3_fake</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>turtlebot3_teleop</exec_depend>
+  <exec_depend>turtlebot3_bringup</exec_depend>
   <!--test_depend>roslaunch</test_depend-->
 
 </package>
