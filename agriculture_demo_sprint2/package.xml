@@ -22,6 +22,8 @@
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>teleop_twist_joy</exec_depend>
   <exec_depend>twist_mux</exec_depend>
+  <exec_depend>jackal_description</exec_depend>
+  <exec_depend>jackal_control</exec_depend>
   <!--test_depend>roslaunch</test_depend-->
 
 </package>
