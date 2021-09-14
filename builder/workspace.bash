@@ -63,7 +63,11 @@ function build_workspace {
     for file in "$ws/src/*.rosinstall"; do
         if [ -f ${file} ]; then
             if ! command -v wstool > /dev/null; then
+                if [ "$ROS_DISTRO" == "noetic" ]; then
+                apt_get_install python3-wstool > /dev/null
+                else
                 apt_get_install python-wstool > /dev/null
+                fi
             fi
             wstool init $ws/src/
             wstool merge -t $ws/src/ $file
