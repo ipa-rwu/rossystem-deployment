@@ -1,8 +1,5 @@
 name: agriculture_demo_noetic
-on:
-  push:
-    paths:
-      - 'agriculture_demo_noetic/*'
+on: [push]
 env:
   PREFIX: "${{ secrets.DOCKER_USERNAME }}/"
   SUFFIX: ""
