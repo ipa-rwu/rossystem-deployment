@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <launch>
+
   <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="turtlebot3_teleop_keyboard" cwd="node" respawn="false" output="screen">
     <remap from='cmd_vel' to='/cmd_vel' />
-    <param name="/model" value="burger" />
+    <param name="model" value="burger" />
   </node>
 
 </launch>
