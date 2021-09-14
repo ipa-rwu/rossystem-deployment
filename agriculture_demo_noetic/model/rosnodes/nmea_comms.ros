@@ -1,0 +1,10 @@
+PackageSet {
+  CatkinPackage nmea_comms {
+    FromGitRepo "https://github.com/ros-drivers/nmea_comms" 
+    Artifact serial_node {
+      Node { name serial_node
+        Parameters {
+          Parameter { name 'frame_id' type String default 'navsat'},
+          Parameter { name 'port' type String default '/dev/ttyUSB0'},
+          Parameter { name 'baud' type Integer default 115200}}}
+}}}

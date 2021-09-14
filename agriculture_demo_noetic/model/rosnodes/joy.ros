@@ -1,0 +1,16 @@
+PackageSet {
+	CatkinPackage joy {
+	FromGitRepo "https://github.com/ros-drivers/joystick_drivers" 
+	Artifact joy_node { Node { name joy_node
+		Publishers {
+			Publisher { name "joy" message "sensor_msgs.Joy" },
+			Publisher { name "diagnostics" message "diagnostic_msgs.DiagnosticArray" }
+		}
+		Subscribers {
+			Subscriber { name "joy/set_feedback" message "sensor_msgs.JoyFeedbackArray"}
+		}
+		Parameters {
+        	Parameter { name 'joy_node/dev' type String },
+        	Parameter { name 'joy_node/deadzone' type Double },
+        	Parameter { name 'joy_node/autorepeat_rate' type Integer }}}
+}}}
