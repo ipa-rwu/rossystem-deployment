@@ -2,7 +2,7 @@ version: "3.3"
 networks:
   ros:
     driver: bridge
-    
+
 services:
   ros-master:
     image: ros:melodic-ros-core
@@ -20,7 +20,7 @@ services:
     networks:
       - ros
     command: stdbuf -o L roslaunch turtlebot_sim_stacks_sim_without_gazebo sim_without_gazebo.launch --wait
-    
+
   turtlebot_sim_stacks_control:
     image: "turtlebot_sim_stacks_control:latest"
     depends_on:
@@ -30,6 +30,6 @@ services:
       - "ROS_HOSTNAME=control"
     networks:
       - ros
+    stdin_open: true
+    tty: true
     command: stdbuf -o L roslaunch turtlebot_sim_stacks_control control.launch --wait
-    
-

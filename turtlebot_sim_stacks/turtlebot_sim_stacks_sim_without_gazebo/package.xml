@@ -12,7 +12,8 @@
   <author email="jane.doe@example.com">Jane Doe</author>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <exec_depend>turtlebot3_faketurtlebot3_fake</exec_depend>
+  <exec_depend>turtlebot3_fake</exec_depend>
+  <exec_depend>turtlebot3_bringup</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <!--test_depend>roslaunch</test_depend-->
 
