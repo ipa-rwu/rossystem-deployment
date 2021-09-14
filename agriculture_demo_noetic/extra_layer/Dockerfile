@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:experimental
 ARG SUFFIX=
 ARG PREFIX=
-ARG BUILDER_SUFFIX=:melodic
-FROM ros:melodic-ros-core as base
+ARG BUILDER_SUFFIX=:noetic
+FROM ros:noetic-ros-core as base
 FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
 FROM base as pre_build

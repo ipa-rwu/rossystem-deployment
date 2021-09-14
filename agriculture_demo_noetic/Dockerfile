@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:experimental
 ARG SUFFIX=
-ARG BUILDER_SUFFIX=:melodic
+ARG BUILDER_SUFFIX=:noetic
 ARG PREFIX=
 FROM ${PREFIX}extra_layer_agriculture_demo_noetic${SUFFIX} as base
 FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder

@@ -6,7 +6,7 @@ on:
 env:
   PREFIX: "${{ secrets.DOCKER_USERNAME }}/"
   SUFFIX: ""
-  BUILDER_SUFFIX: melodic
+  BUILDER_SUFFIX: noetic
 jobs:
   builder:
     runs-on: ubuntu-latest
