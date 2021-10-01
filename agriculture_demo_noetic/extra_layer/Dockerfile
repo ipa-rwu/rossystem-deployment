@@ -15,6 +15,7 @@ RUN --mount=type=bind,from=builder,target=/builder \
 FROM pre_build as build
 RUN --mount=type=bind,from=builder,target=/builder \
     apt-get update -qq && \
+    apt-get install ros-noetic-jackal-firmware -y \
     /builder/workspace.bash build_workspace /root/ws && \
     rm -rf /var/lib/apt/lists/*
 
