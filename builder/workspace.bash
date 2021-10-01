@@ -26,7 +26,7 @@ function list_packages {
 function setup_rosdep {
     if ! command -v rosdep > /dev/null; then
         if [ "$ROS_DISTRO" == "noetic" ]; then
-            apt_get_install python3-rosdep2 > /dev/null
+            apt_get_install python3-rosdep > /dev/null
         else
             apt_get_install python-rosdep > /dev/null
         fi
