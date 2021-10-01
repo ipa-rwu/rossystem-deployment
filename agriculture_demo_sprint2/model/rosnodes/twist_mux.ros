@@ -1,0 +1,18 @@
+PackageSet {
+  CatkinPackage twist_mux {
+    FromGitRepo "https://github.com/ros-teleop/twist_mux" 
+    Artifact twist_mux {
+      Node { name twist_mux
+        Publishers {
+          Publisher { name 'diagnostics' message 'diagnostic_msgs.DiagnosticArray'},
+          Publisher { name 'cmd_vel' message 'geometry_msgs.Twist'}}
+        Subscribers {
+          Subscriber { name 'cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name 'cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name 'cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name 'e_stop' message 'std_msgs.Bool'},
+          Subscriber { name 'cmd_vel' message 'geometry_msgs.Twist'}}
+        Parameters {
+          Parameter { name '/twist_mux/locks' type Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}},
+          Parameter { name '/twist_mux/topics' type List { Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}, Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}, Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}, Struct {'topic' String, 'priority' Integer , 'name' String, 'timeout' Double}}}}}
+}}}

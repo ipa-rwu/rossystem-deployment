@@ -1,0 +1,12 @@
+PackageSet {
+  CatkinPackage nmea_navsat_driver {
+    FromGitRepo "https://github.com/ros-drivers/nmea_navsat_driver" 
+    Artifact nmea_topic_driver {
+      Node { name nmea_topic_driver
+        Publishers {
+          Publisher { name 'time_reference' message 'sensor_msgs.TimeReference'},
+          Publisher { name 'vel' message 'geometry_msgs.TwistStamped'},
+          Publisher { name 'fix' message 'sensor_msgs.NavSatFix'}}
+        Subscribers {
+          Subscriber { name 'nmea_sentence' message 'nmea_msgs.Sentence'}}}
+}}}
