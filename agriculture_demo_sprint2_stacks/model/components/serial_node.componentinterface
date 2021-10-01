@@ -1,0 +1,9 @@
+ComponentInterface { name serial_node
+	FromRosNode "nmea_comms.serial_node.serial_node"
+	
+		RosParameters{
+			RosParameter "frame_id" { RefParameter "nmea_comms.serial_node.serial_node.frame_id"},
+			RosParameter "port" { RefParameter "nmea_comms.serial_node.serial_node.port"},
+			RosParameter "baud" { RefParameter "nmea_comms.serial_node.serial_node.baud"}
+		}
+}

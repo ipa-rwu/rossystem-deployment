@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_node" cwd="node" respawn="false" output="screen">
+    <remap from='/jackal_velocity_controller/odom' to='jackal_velocity_controller/odom' />
+    <param name="/ekf_localization/odom0" value="/jackal_velocity_controller/odom" />
+    <param name="/ekf_localization/imu0" value="/imu/data" />
+    <param name="/ekf_localization/odom0_config" value="[false,false,false,false,false,false,true,true,true,false,false,true,false,false,false]" />
+    <param name="/ekf_localization/odom0_differential" value="false" />
+    <param name="/ekf_localization/base_link_frame" value="base_link" />
+    <param name="/ekf_localization/imu0_differential" value="false" />
+    <param name="/ekf_localization/imu0_config" value="[false,false,false,true,true,true,false,false,false,true,true,true,false,false,false]" />
+    <param name="/ekf_localization/frequency" value="50" />
+    <param name="/ekf_localization/world_frame" value="odom" />
+    <param name="/ekf_localization/odom_frame" value="odom" />
+  </node>
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" cwd="node" respawn="false" output="screen">
+    <param name="mag_bias_z" value="0.0" />
+    <param name="publish_tf" value="false" />
+    <param name="orientation_stddev" value="0.0" />
+    <param name="gain" value="0.1" />
+    <param name="use_mag" value="false" />
+    <param name="zeta" value="0.001" />
+    <param name="use_magnetic_field_msg" value="false" />
+    <param name="mag_bias_x" value="0.0" />
+    <param name="mag_bias_y" value="0.0" />
+  </node>
+  <node pkg="jackal_base" type="jackal_node" name="jackal_node" cwd="node" respawn="false" output="screen">
+    <remap from='jackal_velocity_controller/cmd_vel' to='cmd_vel' />
+    <remap from='imu/data_raw' to='data' />
+    <param name="jackal_node/require/publishers" value="[status,feedback,imu/data_raw,navsat/nmea_sentence]" />
+    <param name="jackal_node/require/subscribers" value="[cmd_drive,wifi_connected]" />
+    <param name="jackal_node/wireless_interface" value="wlp2s0" />
+  </node>
+  <node pkg="lms1xx" type="LMS1xx_node" name="LMS1xx_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="marker_server" ns="twist_marker_server" cwd="node" respawn="false" output="screen">
+    <remap from='update_full' to='twist_marker_server/update_full' />
+    <remap from='update' to='twist_marker_server/update' />
+    <remap from='feedback' to='twist_marker_server/feedback' />
+  </node>
+  <node pkg="nmea_navsat_driver" type="nmea_topic_driver" name="nmea_topic_driver" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" cwd="node" respawn="false" output="screen">
+  </node>
+
+</launch>
