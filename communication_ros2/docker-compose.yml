@@ -1,0 +1,5 @@
+version: "3.3"
+services:
+  communication:
+    image: "communication:latest"
+    command: stdbuf -o L ros2 launch communication communication.py
