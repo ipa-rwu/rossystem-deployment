@@ -36,7 +36,7 @@ RUN --mount=type=bind,from=builder,target=/builder \
     /builder/workspace.bash install_depends /root/ws && \
     rm -rf /var/lib/apt/lists/*
 
-FROM pre_build as deploy
+FROM build as deploy
 RUN --mount=type=bind,from=builder,target=/builder \
     --mount=type=bind,target=/root/ws,from=install,source=/root/ws \
     apt-get update -qq && \
