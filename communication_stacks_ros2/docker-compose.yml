@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  communication_stacks_foxy_publisher_stack:
+    image: "communication_stacks_foxy_publisher_stack:latest"
+    command: stdbuf -o L ros2 launch communication_stacks_publisher_stack publisher_stack.launch.py
+
+  communication_stacks_foxy_subscriber_stack:
+    image: "communication_stacks_foxy_subscriber_stack:latest"
+    command: stdbuf -o L ros2 launch communication_stacks_subscriber_stack subscriber_stack.launch.py
+
