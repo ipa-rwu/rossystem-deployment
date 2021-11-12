@@ -36,18 +36,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       -
+        name: Get Branch
+        id: extract_branch
+        run: echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/} | sed 's/[^a-zA-Z0-9-]/-/g')
+      -
         name: Docker meta
         id: docker_meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/${{ github.job }}
           tags: |
-            type=ref,event=branch
+            type=raw,value=${{ steps.extract_branch.outputs.branch }}
             type=raw,value=latest
-      -
-        name: Get Branch
-        id: extract_branch
-        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
       -
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
@@ -96,18 +96,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       -
+        name: Get Branch
+        id: extract_branch
+        run: echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/} | sed 's/[^a-zA-Z0-9-]/-/g')
+      -
         name: Docker meta
         id: docker_meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/${{ github.job }}
           tags: |
-            type=ref,event=branch
+            type=raw,value=${{ steps.extract_branch.outputs.branch }}
             type=raw,value=latest
-      -
-        name: Get Branch
-        id: extract_branch
-        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
       -
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
@@ -155,18 +155,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       -
+        name: Get Branch
+        id: extract_branch
+        run: echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/} | sed 's/[^a-zA-Z0-9-]/-/g')
+      -
         name: Docker meta
         id: docker_meta
         uses: docker/metadata-action@v3
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/${{ github.job }}
           tags: |
-            type=ref,event=branch
+            type=raw,value=${{ steps.extract_branch.outputs.branch }}
             type=raw,value=latest
-      -
-        name: Get Branch
-        id: extract_branch
-        run: echo ::set-output name=branch::$(echo ${GITHUB_REF} | cut -d'/' -f3)
       -
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
