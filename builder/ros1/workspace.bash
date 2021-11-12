@@ -58,20 +58,21 @@ function build_workspace {
     setup_rosdep
     for file in "$ws/src/*.rosinstall"; do
         if [ -f ${file} ]; then
-            if ! command -v wstool > /dev/null; then
-                apt_get_install python-wstool > /dev/null
+            if ! command -v vcstool > /dev/null; then
+                apt_get_install python-vcstool > /dev/null
             fi
-            wstool init $ws/src/
-            wstool merge -t $ws/src/ $file
-            wstool update -t $ws/src/
+            if ! command -v git > /dev/null; then
+                apt_get_install git > /dev/null
+            fi
+            vcs import $ws/src/ < $file
+            rm $file
         fi
     done;
     for folder in "$ws/src"/*; do
         if [[ -d ${folder} ]]; then
             for file in "$ws/src/${folder}/*.rosinstall" "$ws/src/${folder}/rosinstall"; do
                 if [ -f ${file} ]; then
-            wstool merge -t $ws/src/ $file
-            wstool update -t $ws/src/
+                    vcs import $ws/src/ < $file
                 fi
             done;
         fi
