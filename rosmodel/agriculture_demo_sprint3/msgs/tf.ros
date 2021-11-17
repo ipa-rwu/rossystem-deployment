@@ -1,0 +1,6 @@
+PackageSet{
+    Package tf{ Specs { 
+      TopicSpec tfMessage{ message { "geometry_msgs.TransformStamped"[] transforms }},
+      ServiceSpec FrameGraph{ request {  } response { string dot_graph } }
+    }}
+  }
