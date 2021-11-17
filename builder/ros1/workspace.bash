@@ -25,7 +25,11 @@ function list_packages {
 }
 function setup_rosdep {
     if ! command -v rosdep > /dev/null; then
-        apt_get_install python-rosdep > /dev/null
+        if [[ $(lsb_release -rs) == "18.04" ]]; then
+            apt_get_install python-rosdep > /dev/null
+        else
+            apt_get_install python3-rosdep > /dev/null
+        fi
     fi
     if command -v sudo > /dev/null; then
         sudo rosdep init || true
@@ -59,7 +63,11 @@ function build_workspace {
     for file in "$ws/src/*.rosinstall"; do
         if [ -f ${file} ]; then
             if ! command -v vcstool > /dev/null; then
-                apt_get_install python-vcstool > /dev/null
+                if [[ $(lsb_release -rs) == "18.04" ]]; then
+                    apt_get_install python-vcstool > /dev/null
+                else
+                    apt_get_install python3-vcstool > /dev/null
+                fi
             fi
             if ! command -v git > /dev/null; then
                 apt_get_install git > /dev/null
