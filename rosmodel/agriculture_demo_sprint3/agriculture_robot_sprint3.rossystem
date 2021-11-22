@@ -1,0 +1,655 @@
+RosSystem { Name 'agriculture_robot_sprint3' 
+RosComponents ( 
+	ComponentInterface { name joy_node NameSpace bluetooth_teleop FromRosNode "joy.joy_node.joy_node" 
+      RosPublishers { 
+      	RosPublisher "bluetooth_teleop/joy" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.joy" }, 
+      	RosPublisher "bluetooth_teleop/diagnostics" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.diagnostics" }} 
+      RosSubscribers { 
+      	RosSubscriber "bluetooth_teleop/joy/set_feedback" { ns bluetooth_teleop RefSubscriber "joy.joy_node.joy_node.joy/set_feedback" }}
+      RosParameters { 
+      	RosParameter "bluetooth_teleop/joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/dev" } , 
+      	RosParameter "bluetooth_teleop/joy_node/deadzone" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/deadzone" } , 
+      	RosParameter "bluetooth_teleop/joy_node/autorepeat_rate" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/autorepeat_rate" }
+      }},
+    ComponentInterface { name teleop_twist_joy NameSpace bluetooth_teleop FromRosNode "teleop_twist_joy.teleop_node.teleop_node" 
+      RosPublishers {
+      	RosPublisher "bluetooth_teleop/cmd_vel" { ns bluetooth_teleop RefPublisher "teleop_twist_joy.teleop_node.teleop_node.cmd_vel" }} 
+      RosSubscribers { 
+      	RosSubscriber "bluetooth_teleop/joy" { ns bluetooth_teleop RefSubscriber "teleop_twist_joy.teleop_node.teleop_node.joy" }}
+      RosParameters {
+      	RosParameter "bluetooth_teleop/enable_button" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.enable_button" } , 
+      	RosParameter "bluetooth_teleop/scale_angular" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_angular" } , 
+      	RosParameter "bluetooth_teleop/enable_turbo_button" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.enable_turbo_button" } , 
+      	RosParameter "bluetooth_teleop/scale_linear" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_linear" } , 
+      	RosParameter "bluetooth_teleop/scale_linear_turbo" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_linear_turbo" } , 
+      	RosParameter "bluetooth_teleop/axis_angular" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.axis_angular" } , 
+      	RosParameter "bluetooth_teleop/axis_linear" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.axis_linear" }}} ,
+    ComponentInterface { name controller_spawner FromRosNode "controller_manager.spawner.controller_spawner" } ,
+    ComponentInterface { name diagnostic_aggregator FromRosNode "diagnostic_aggregator.aggregator_node.aggregator_node" 
+      RosPublishers {
+      	RosPublisher "/diagnostics_agg" { RefPublisher "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics_agg" } , 
+      	RosPublisher "/diagnostics_toplevel_state" { RefPublisher "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics_toplevel_state" }} 
+      RosSubscribers { 
+      	RosSubscriber "/diagnostics" { RefSubscriber "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics" }} 
+      RosSrvClients { 
+      	RosServiceClient add_diagnostics { RefClient "diagnostic_aggregator.aggregator_node.aggregator_node.add_diagnostics" }}} ,
+    ComponentInterface { name imu_filter FromRosNode "imu_filter_madgwick.imu_filter_node.imu_filter_node" 
+      RosPublishers { RosPublisher data { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.data" } , 
+      	RosPublisher parameter_descriptions { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.parameter_descriptions" } , 
+      	RosPublisher parameter_updates { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.parameter_updates" } , 
+      	RosPublisher tf { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.tf" }} 
+      RosSubscribers { 
+      	RosSubscriber data_raw { RefSubscriber "imu_filter_madgwick.imu_filter_node.imu_filter_node.data_raw" }}  
+      RosSrvServers { 
+      	RosServiceServer set_parameters { RefServer "imu_filter_madgwick.imu_filter_node.imu_filter_node.set_parameters" }} 
+      RosParameters { 
+      	RosParameter mag_bias_z { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_z" } , 
+      	RosParameter publish_tf { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.publish_tf" } , 
+      	RosParameter orientation_stddev { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.orientation_stddev" } , 
+      	RosParameter gain { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.gain" } , 
+      	RosParameter use_mag { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.use_mag" } , 
+      	RosParameter zeta { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.zeta" } , 
+      	RosParameter use_magnetic_field_msg { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.use_magnetic_field_msg" } , 
+      	RosParameter mag_bias_x { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_x" } , 
+      	RosParameter mag_bias_y { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_y" }}} ,
+    ComponentInterface { name jackal_node FromRosNode "jackal_base.jackal_node.jackal_node" 
+      RosPublishers {
+      	RosPublisher cmd_drive { RefPublisher "jackal_base.jackal_node.jackal_node.cmd_drive" } , 
+      	RosPublisher wifi_connected { RefPublisher "jackal_base.jackal_node.jackal_node.wifi_connected" } , 
+      	RosPublisher feedback { RefPublisher "jackal_base.jackal_node.jackal_node.feedback" } , 
+      	RosPublisher diagnostics { RefPublisher "jackal_base.jackal_node.jackal_node.diagnostics" } , 
+      	RosPublisher joint_states { RefPublisher "jackal_base.jackal_node.jackal_node.joint_states" } , 
+      	RosPublisher status { RefPublisher "jackal_base.jackal_node.jackal_node.status" } , 
+      	RosPublisher "navsat/nmea_sentence" { RefPublisher "jackal_base.jackal_node.jackal_node.navsat/nmea_sentence" } , 
+      	RosPublisher "jackal_velocity_controller/parameter_descriptions" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/parameter_descriptions" } , 
+      	RosPublisher "imu/mag" { RefPublisher "jackal_base.jackal_node.jackal_node.imu/mag" } , 
+      	RosPublisher "imu/data_raw" { RefPublisher "jackal_base.jackal_node.jackal_node.imu/data_raw" } , 
+      	RosPublisher "jackal_velocity_controller/parameter_updates" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/parameter_updates" } , 
+      	RosPublisher "jackal_velocity_controller/odom" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/odom" } , 
+      	RosPublisher tf { RefPublisher "jackal_base.jackal_node.jackal_node.tf" }} 
+      RosSubscribers { 
+      	RosSubscriber "jackal_velocity_controller/cmd_vel" { RefSubscriber "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/cmd_vel" } , 
+      	RosSubscriber feedback { RefSubscriber "jackal_base.jackal_node.jackal_node.feedback" } , 
+      	RosSubscriber status { RefSubscriber "jackal_base.jackal_node.jackal_node.status" } , 
+      	RosSubscriber cmd_drive { RefSubscriber "jackal_base.jackal_node.jackal_node.cmd_drive" } , 
+      	RosSubscriber "imu/data_raw" { RefSubscriber "jackal_base.jackal_node.jackal_node.imu/data_raw" } , 
+      	RosSubscriber "navsat/nmea_sentence" { RefSubscriber "jackal_base.jackal_node.jackal_node.navsat/nmea_sentence" } , 
+      	RosSubscriber wifi_connected { RefSubscriber "jackal_base.jackal_node.jackal_node.wifi_connected" }}  
+      RosSrvServers { 
+      	RosServiceServer "controller_manager/reload_controller_libraries" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/reload_controller_libraries" } , 
+      	RosServiceServer "controller_manager/load_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/load_controller" } , 
+      	RosServiceServer "controller_manager/switch_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/switch_controller" } , 
+      	RosServiceServer "jackal_velocity_controller/set_parameters" { RefServer "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/set_parameters" } , 
+      	RosServiceServer "controller_manager/list_controllers" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controllers" } , 
+      	RosServiceServer "controller_manager/list_controller_types" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controller_types" } , 
+      	RosServiceServer "controller_manager/unload_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/unload_controller" }}
+      RosParameters { 
+      	RosParameter "require/publishers" { RefParameter "jackal_base.jackal_node.jackal_node.require/publishers" } , 
+      	RosParameter "require/subscribers" { RefParameter "jackal_base.jackal_node.jackal_node.require/subscribers" } , 
+      	RosParameter wireless_interface { RefParameter "jackal_base.jackal_node.jackal_node.wireless_interface" } , 
+      	RosParameter port { RefParameter "jackal_base.jackal_node.jackal_node.port" }} } , 
+	ComponentInterface { name  nmea_topic_driver NameSpace navsat FromRosNode "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver" 
+      RosPublishers { 
+      	RosPublisher "navsat/time_reference" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.time_reference" } , 
+      	RosPublisher "navsat/vel" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.vel" } , 
+      	RosPublisher "navsat/fix" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.fix" } , 
+      	RosPublisher "navsat/error_statistics" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.error_statistics" } , 
+      	RosPublisher "navsat/heading" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.heading" } , 
+      	RosPublisher "navsat/heading_only" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.heading_only" } , 
+      	RosPublisher "navsat/info" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.info" } , 
+      	RosPublisher "navsat/orientation" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.orientation" }} 
+      RosSubscribers { 
+      	RosSubscriber "navsat/nmea_sentence" { ns navsat RefSubscriber "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.nmea_sentence" }}} ,
+    ComponentInterface { name robot_state_publisher FromRosNode "robot_state_publisher.robot_state_publisher.robot_state_publisher" 
+      RosPublishers { 
+      	RosPublisher "/tf" { RefPublisher "robot_state_publisher.robot_state_publisher.robot_state_publisher./tf" } , 
+      	RosPublisher "/tf_static" { RefPublisher "robot_state_publisher.robot_state_publisher.robot_state_publisher./tf_static" }} 
+      RosSubscribers { 
+      	RosSubscriber joint_states { RefSubscriber "robot_state_publisher.robot_state_publisher.robot_state_publisher.joint_states" }} } ,
+    ComponentInterface { name rosserial_message_info FromRosNode "rosserial_python.message_info_service.rosserial_message_info" } ,
+    ComponentInterface { name twist_marker_server FromRosNode "interactive_marker_twist_server.marker_server.marker_server" 
+      RosPublishers { 
+      	RosPublisher cmd_vel { RefPublisher "interactive_marker_twist_server.marker_server.marker_server.cmd_vel" } , 
+      	RosPublisher update_full { RefPublisher "interactive_marker_twist_server.marker_server.marker_server.update_full" } , 
+      	RosPublisher update { RefPublisher "interactive_marker_twist_server.marker_server.marker_server.update" }} 
+      RosSubscribers { 
+      	RosSubscriber feedback { RefSubscriber "interactive_marker_twist_server.marker_server.marker_server.feedback" }}
+      RosParameters {
+      	RosParameter link_name { RefParameter "interactive_marker_twist_server.marker_server.marker_server.link_name" }} } ,
+    ComponentInterface { name twist_mux FromRosNode "twist_mux.twist_mux.twist_mux" 
+      RosPublishers { 
+      	RosPublisher diagnostics { RefPublisher "twist_mux.twist_mux.twist_mux.diagnostics" } , 
+      	RosPublisher cmd_vel_out { RefPublisher "twist_mux.twist_mux.twist_mux.cmd_vel_out" }
+      } 
+      RosSubscribers { 
+      	RosSubscriber "joy_teleop/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.joy_teleop/cmd_vel" } , 
+      	RosSubscriber "bluetooth_teleop/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.bluetooth_teleop/cmd_vel" } , 
+      	RosSubscriber "twist_marker_server/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.twist_marker_server/cmd_vel" } , 
+      	RosSubscriber e_stop { RefSubscriber "twist_mux.twist_mux.twist_mux.e_stop" } , 
+      	RosSubscriber cmd_vel { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel" }}
+            RosParameters {
+                RosParameter '/twist_mux/locks' {RefParameter "twist_mux.twist_mux.twist_mux./twist_mux/locks" value {
+                	{'topic' { value 'e_stop'}}, 
+                	{ 'priority' { value 255 }},
+                	{'name' { value 'e_stop'}},
+                	{ 'timeout' { value 0.0}}}},
+                RosParameter '/twist_mux/topics' {RefParameter "twist_mux.twist_mux.twist_mux./twist_mux/topics" value {
+					{{'topic' { value 'joy_teleop/cmd_vel'}},{ 'priority'  { value 10}},{ 'name'  { value 'joy'}},{ 'timeout'  { value 0.5}}},
+					{{'topic'  { value 'bluetooth_teleop/cmd_vel'}},{ 'priority'  { value 9}},{ 'name'  { value 'bt_joy'}},{ 'timeout'  { value 0.5}}}, 
+					{{'topic'  { value 'twist_marker_server/cmd_vel'}},{ 'priority'  { value 8}},{ 'name'  { value 'interactive_marker'}},{ 'timeout'  { value 0.5}}}, 
+					{{'topic'  { value 'cmd_vel'}},{ 'priority'  { value 1}},{ 'name'  { value 'external'}},{ 'timeout'  { value 0.5}}}}}} } )
+ 
+
+      TopicConnections { 
+      	TopicConnection "bluetooth_teleop/joy" { From ( "joy_node.bluetooth_teleop/joy" ) To ( "teleop_twist_joy.bluetooth_teleop/joy" ) } , 
+      	TopicConnection "bluetooth_teleop/cmd_vel" { From ( "teleop_twist_joy.bluetooth_teleop/cmd_vel" ) To ( "twist_mux.bluetooth_teleop/cmd_vel" ) } , 
+      	TopicConnection joint_states { From ( "jackal_node.joint_states" ) To ( "robot_state_publisher.joint_states" ) } , 
+      	TopicConnection "navsat/nmea_sentence" { From ( "jackal_node.navsat/nmea_sentence" ) To ( "nmea_topic_driver.navsat/nmea_sentence" ) } , 
+      	TopicConnection cmd_vel { From ( "twist_marker_server.cmd_vel" ) To ( "twist_mux.cmd_vel" ) } , 
+      	TopicConnection diagnostics { From ( "twist_mux.diagnostics" ) To ( "diagnostic_aggregator./diagnostics" ) } , 
+      	TopicConnection diagnostics { From ( "jackal_node.diagnostics" ) To ( "diagnostic_aggregator./diagnostics" ) }}
+	Parameters {
+		Parameter { name '/robot_description' type String value '<?xml version="1.0" ?>
+<!-- =================================================================================== -->
+<!-- |    This document was autogenerated by xacro from /home/administrator/catkin_ws/src/ipa_jackal_tools/jackal/jackal_description/urdf/jackal.urdf.xacro | -->
+<!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
+<!-- =================================================================================== -->
+<robot name="jackal">
+  <material name="dark_grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="light_grey">
+    <color rgba="0.4 0.4 0.4 1.0"/>
+  </material> 
+  <material name="yellow"> 
+    <color rgba="0.8 0.8 0.0 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.15 0.15 0.15 1.0"/>
+  </material>
+  <link name="front_left_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="front_left_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="front_left_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="front_left_wheel_link"/>
+    <origin rpy="0 0 0" xyz="0.131 0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="front_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_left_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="front_left_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="front_right_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="front_right_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="front_right_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="front_right_wheel_link"/>
+    <origin rpy="0 0 0" xyz="0.131 -0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="front_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_right_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="front_right_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="rear_left_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="rear_left_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="rear_left_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="rear_left_wheel_link"/>
+    <origin rpy="0 0 0" xyz="-0.131 0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="rear_left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_left_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_left_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="rear_right_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-wheel.stl"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.098"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.477"/>
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013"/>
+    </inertial>
+  </link>
+  <gazebo reference="rear_right_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0"/>
+    <kd value="1"/>
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+  <joint name="rear_right_wheel" type="continuous">
+    <parent link="chassis_link"/>
+    <child link="rear_right_wheel_link"/>
+    <origin rpy="0 0 0" xyz="-0.131 -0.187795 0.0345"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <!-- In reality, Jackal has only two motors, one per side. However, its more
+         straightforward for Gazebo to simulate as if theres an actuator per wheel. -->
+  <transmission name="rear_right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_right_wheel">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rear_right_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <link name="base_link"/>
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="chassis_link"/>
+  </joint>
+  <link name="chassis_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 -0.0655"/>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-base.stl"/>
+      </geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.092"/>
+      <geometry>
+        <box size="0.42 0.31 0.184"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <!-- Center of mass -->
+      <origin rpy="0 0 0" xyz="0.012  0.002 0.067"/>
+      <mass value="16.523"/>
+      <!-- Moments of inertia: ( chassis without wheels ) -->
+      <inertia ixx="0.3136" ixy="-0.0008" ixz="0.0164" iyy="0.3922" iyz="-0.0009" izz="0.4485"/>
+    </inertial>
+  </link>
+  <link name="front_fender_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-fender.stl"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+  <joint name="front_fender_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="chassis_link"/>
+    <child link="front_fender_link"/>
+  </joint>
+  <link name="rear_fender_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://jackal_description/meshes/jackal-fender.stl"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+  <joint name="rear_fender_joint" type="fixed">
+    <origin rpy="0 0 3.141592653589793" xyz="0 0 0"/>
+    <parent link="chassis_link"/>
+    <child link="rear_fender_link"/>
+  </joint>
+  <!-- TODO: Make this internal_imu_link or something, and use a mixed-in xacro
+       to supply the joint between it and imu_link. This is important so that imu_link
+       always points to the "active" IMU. When an upgrade IMU is connected, the
+       internal_imu_link should remain, but imu_link should point to the upgrade one. -->
+  <link name="imu_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="imu_link"/>
+  </joint>
+  <!-- TODO: Same note as applies to imu_link -->
+  <link name="navsat_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.016" radius="0.026"/>
+      </geometry>
+      <origin xyz="0 0 0.008"/>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="navsat_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="navsat_link"/>
+    <origin xyz="-0.180 0.126 0.1815"/>
+  </joint>
+  <link name="mid_mount"/>
+  <joint name="mid_mount_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="mid_mount"/>
+    <origin xyz="0 0 0.184"/>
+  </joint>
+  <link name="rear_mount"/>
+  <joint name="rear_mount_joint" type="fixed">
+    <parent link="mid_mount"/>
+    <child link="rear_mount"/>
+    <origin xyz="-0.12 0 0"/>
+  </joint>
+  <link name="front_mount"/>
+  <joint name="front_mount_joint" type="fixed">
+    <parent link="mid_mount"/>
+    <child link="front_mount"/>
+    <origin xyz="0.12 0 0"/>
+  </joint>
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libhector_gazebo_ros_imu.so" name="imu_controller">
+      <robotNamespace>/</robotNamespace>
+      <updateRate>50.0</updateRate>
+      <bodyName>imu_link</bodyName>
+      <topicName>imu/data</topicName>
+      <accelDrift>0.005 0.005 0.005</accelDrift>
+      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+      <rateDrift>0.005 0.005 0.005 </rateDrift>
+      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+      <headingDrift>0.005</headingDrift>
+      <headingGaussianNoise>0.005</headingGaussianNoise>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libhector_gazebo_ros_gps.so" name="gps_controller">
+      <updateRate>40</updateRate>
+      <robotNamespace>/</robotNamespace>
+      <bodyName>navsat_link</bodyName>
+      <frameId>base_link</frameId>
+      <topicName>/navsat/fix</topicName>
+      <velocityTopicName>/navsat/vel</velocityTopicName>
+      <referenceLatitude>49.9</referenceLatitude>
+      <referenceLongitude>8.9</referenceLongitude>
+      <referenceHeading>0</referenceHeading>
+      <referenceAltitude>0</referenceAltitude>
+      <drift>0.0001 0.0001 0.0001</drift>
+    </plugin>
+  </gazebo>
+  <gazebo reference="base_link">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="chassis_link">
+    <material>Gazebo/DarkGrey</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="imu_link">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="navsat_link">
+    <material>Gazebo/DarkGrey</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="front_fender_link">
+    <material>Gazebo/Yellow</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <gazebo reference="rear_fender_link">
+    <material>Gazebo/Yellow</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <!--
+    As you add to this URDF, please be aware that both the robot and
+    simulation include it. You must retain compatibility with all of
+    the following launch files:
+
+    jackal_viz/launch/view_model.launch
+    jackal_gazebo/launch/jackal_world.launch
+    jackal_base/launch/base.launch
+  -->
+  <!-- Common camera mounts and accessory URDFs. -->
+  <!-- <xacro:include filename="$(find jackal_description)/urdf/accessories/camera_mount.urdf.xacro" /> -->
+  <!-- <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_flea3.urdf.xacro" /> -->
+  <!-- If enabled, generate the flea3 camera payload with a tilt of 30 degrees. -->
+  <!-- <xacro:if value="$(optenv JACKAL_FLEA3 0)">
+    <camera_mount prefix="$(optenv JACKAL_FLEA3_MOUNT front)"
+                       tilt="$(optenv JACKAL_FLEA3_TILT 0.5236)"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_camera_mount_joint" type="fixed">
+      <origin xyz="$(optenv JACKAL_FLEA3_OFFSET 0 0 0)"
+              rpy="$(optenv JACKAL_FLEA3_RPY 0 0 0)" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_mount" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_camera_mount" />
+    </joint>
+
+    <pointgrey_flea3 frame="$(optenv JACKAL_FLEA3_MOUNT front)_camera" name="$(optenv JACKAL_FLEA3_NAME front)"
+      camera_x="0.0754" camera_y="0.029" camera_z="0.029"
+      camera_mass="0.085" hfov="1.0471975512" fps="60" width="640" height="512"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_camera_bracket_joint" type="fixed">
+      <origin xyz="0.020 0 0.0245" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_camera_beam" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_camera" />
+    </joint>
+  </xacro:if> -->
+  <!-- <xacro:include filename="$(find jackal_description)/urdf/accessories/stereo_camera_mount.urdf.xacro" /> -->
+  <!-- If enabled, generates a pair of flea3 cameras for stereo vision with a tilt of 30 degrees. -->
+  <!-- Disabled temporarily due to metapackage issue. -->
+  <!-- <xacro:if value="$(optenv JACKAL_STEREO_FLEA3 0)">
+    <stereo_camera_mount prefix="$(optenv JACKAL_FLEA3_MOUNT front)"
+                       tilt="$(optenv JACKAL_FLEA3_TILT 0.5236)"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_mount_joint" type="fixed">
+      <origin xyz="$(optenv JACKAL_FLEA3_OFFSET 0 0 0)"
+              rpy="$(optenv JACKAL_FLEA3_RPY 0 0 0)" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_mount" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_mount" />
+    </joint>
+
+    <pointgrey_flea3 frame="$(optenv JACKAL_FLEA3_MOUNT front)_left_camera" name="$(optenv JACKAL_FLEA3_LEFT_NAME front/left)"
+      camera_x="0.0754" camera_y="0.029" camera_z="0.029"
+      camera_mass="0.085" hfov="1.0471975512" fps="60" width="640" height="512"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_left_stereo_camera_bracket_joint" type="fixed">
+      <origin xyz="0.015 $(optenv JACKAL_STEREO_SEPERATION 0.16) 0.0599" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_beam" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_left_camera" />
+    </joint>
+
+    <pointgrey_flea3 frame="$(optenv JACKAL_FLEA3_MOUNT front)_right_camera" name="$(optenv JACKAL_FLEA3_RIGHT_NAME front/right)"
+      camera_x="0.0754" camera_y="0.029" camera_z="0.029"
+      camera_mass="0.085" hfov="1.0471975512" fps="60" width="640" height="512"/>
+    <joint name="$(optenv JACKAL_FLEA3_MOUNT front)_right_stereo_camera_bracket_joint" type="fixed">
+      <origin xyz="0.015 -$(optenv JACKAL_STEREO_SEPERATION 0.16) 0.0599" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_FLEA3_MOUNT front)_stereo_camera_beam" />
+      <child link="$(optenv JACKAL_FLEA3_MOUNT front)_right_camera" />
+    </joint>
+  </xacro:if> -->
+  <!-- If enabled, generate the bumblebee2 camera payload with a tilt of 0 degrees. -->
+  <!-- <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_bumblebee2.urdf.xacro" /> -->
+  <!-- If enabled, generate the bumblebee2 camera payload with a tilt of 0 degrees. -->
+  <!-- Disabled temporarily due to metapackage issue. -->
+  <!-- <xacro:if value="$(optenv JACKAL_BB2 0)">
+    <camera_mount prefix="$(optenv JACKAL_BB2_MOUNT front)"
+                        tilt="$(optenv JACKAL_BB2_TILT 0)"/>
+
+    <joint name="$(optenv JACKAL_BB2_MOUNT front)_camera_mount_joint" type="fixed">
+      <origin xyz="$(optenv JACKAL_BB2_OFFSET 0 0 0)"
+              rpy="$(optenv JACKAL_BB2_RPY 0 0 0)" />
+      <parent link="$(optenv JACKAL_BB2_MOUNT front)_mount" />
+      <child link="$(optenv JACKAL_BB2_MOUNT front)_camera_mount" />
+    </joint>
+
+    <BB2-08S2C-38 frame="$(optenv JACKAL_BB2_MOUNT front)_camera" name="$(optenv JACKAL_BB2_NAME front)" />
+    <joint name="$(optenv JACKAL_BB2_MOUNT front)_camera_bracket_joint" type="fixed">
+      <origin xyz="0.007 0 0.02450" rpy="0 0 0" />
+      <parent link="$(optenv JACKAL_BB2_MOUNT front)_camera_beam" />
+      <child link="$(optenv JACKAL_BB2_MOUNT front)_camera" />
+    </joint>
+  </xacro:if> -->
+  <!-- Trimble position Link-->
+  <link name="gps_trimble_position_link"/>
+  <joint name="gps_trimble_position_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.075 -0.157 0.962"/>
+    <parent link="base_link"/>
+    <child link="gps_trimble_position_link"/>
+  </joint>
+  <link name="gps_trimble_vector_link"/>
+  <joint name="gps_trimble_vector_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.075 0.157 0.962"/>
+    <parent link="base_link"/>
+    <child link="gps_trimble_vector_link"/>
+  </joint>
+  <link name="zed_camera_link"/>
+  <joint name="zed_camera_joint" type="fixed">
+    <origin rpy="0 0.523598776 0" xyz="0.06 0 0.1"/>
+    <parent link="front_mount"/>
+    <child link="zed_camera_link"/>
+  </joint>
+  <link name="velodyne_puck_link"/>
+  <joint name="velodyne_puck_joint" type="fixed">
+    <origin rpy="0 0.79 -0.017" xyz="0.05 0.0 0.670"/>
+    <parent link="mid_mount"/>
+    <child link="velodyne_puck_link"/>
+  </joint>
+  <link name="robosense_lidar_link"/>
+  <joint name="robosense_lidar_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.026 0.0 0.287"/>
+    <parent link="mid_mount"/>
+    <child link="robosense_lidar_link"/>
+  </joint>
+</robot>
+
+'},
+		  Parameter { name '/jackal_joint_publisher/type' type String value 'joint_state_controller/JointStateController'},
+          Parameter { name '/jackal_joint_publisher/publish_rate' type Integer value 50},
+          Parameter { name '/jackal_velocity_controller/type' type String value 'diff_drive_controller/DiffDriveController'},
+          Parameter { name '/jackal_velocity_controller/left_wheel' type List {String,String}value {'front_left_wheel', 'rear_left_wheel'}},
+          Parameter { name '/jackal_velocity_controller/right_wheel' type List {String,String}value {'front_right_wheel', 'rear_right_wheel'}},
+          Parameter { name '/jackal_velocity_controller/publish_rate' type Double value 50.0},
+          Parameter { name '/jackal_velocity_controller/pose_covariance_diagonal' type List {Double,Double,Double,Double,Double,Double}value {0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03}},
+          Parameter { name '/jackal_velocity_controller/twist_covariance_diagonal' type List {Double,Double,Double,Double,Double,Double}value {0.001, 0.001, 0.001, 1000000.0, 1000000.0, 0.03}},
+          Parameter { name '/jackal_velocity_controller/cmd_vel_timeout' type Double value 0.25},
+          Parameter { name '/jackal_velocity_controller/k_l' type Double value 0.1},
+          Parameter { name '/jackal_velocity_controller/k_r' type Double value 0.1},
+          Parameter { name '/jackal_velocity_controller/enable_odom_tf' type Boolean value true},
+          Parameter { name '/jackal_velocity_controller/wheel_separation_multiplier' type Double value 1.5},
+          Parameter { name '/jackal_velocity_controller/wheel_radius_multiplier' type Double value 1.0},
+          Parameter { name '/jackal_velocity_controller/linear/x/has_velocity_limits' type Boolean value true},
+          Parameter { name '/jackal_velocity_controller/linear/x/max_velocity' type Double value 2.0},
+          Parameter { name '/jackal_velocity_controller/linear/x/has_acceleration_limits' type Boolean value true},
+          Parameter { name '/jackal_velocity_controller/linear/x/max_acceleration' type Double value 20.0},
+          Parameter { name '/jackal_velocity_controller/angular/z/has_velocity_limits' type Boolean value true},
+          Parameter { name '/jackal_velocity_controller/angular/z/max_velocity' type Double value 4.0},
+          Parameter { name '/jackal_velocity_controller/angular/z/has_acceleration_limits' type Boolean value true},
+          Parameter { name '/jackal_velocity_controller/angular/z/max_acceleration' type Double value 25.0},
+          Parameter { name '/jackal_velocity_controller/left_wheel_radius_multiplier' type Double value 1.0},
+          Parameter { name '/jackal_velocity_controller/right_wheel_radius_multiplier' type Double value 1.0}}
+      	 }

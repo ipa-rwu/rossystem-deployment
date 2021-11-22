@@ -1,0 +1,17 @@
+PackageSet {
+  CatkinPackage diagnostic_aggregator {
+//    FromGitRepo "https://github.com/ros/diagnostics" 
+    Artifact aggregator_node {
+      Node { name aggregator_node
+      	Publishers {
+      		Publisher {name "/diagnostics_agg" message "diagnostic_msgs.DiagnosticArray"},
+      		Publisher {name "/diagnostics_toplevel_state" message "diagnostic_msgs.DiagnosticStatus"}
+      	}
+      	Subscribers {
+      		Subscriber {name "/diagnostics" message "diagnostic_msgs.DiagnosticArray"}
+      	}
+      	ServiceClients {
+      		ServiceClient {name "add_diagnostics" service "diagnostic_msgs.AddDiagnostics"}
+      	}
+      }
+}}}

@@ -1,0 +1,21 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+services:
+  ros-master:
+    image: ros:noetic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  agriculture_robot_sprint3_noetic:
+    image: "agriculture_robot_sprint3_noetic:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=agriculture_robot_sprint3"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch agriculture_robot_sprint3 agriculture_robot_sprint3.launch --wait

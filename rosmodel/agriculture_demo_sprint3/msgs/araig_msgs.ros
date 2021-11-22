@@ -1,0 +1,1 @@
+PackageSet { Package araig_msgs { Specs { TopicSpec BoolStamped { } , TopicSpec Float64Stamped { } } } }

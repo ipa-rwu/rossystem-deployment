@@ -1,0 +1,6 @@
+PackageSet{
+    Package velodyne_msgs{ Specs { 
+      TopicSpec VelodynePacket{ message { time stamp uint8[] data }},
+      TopicSpec VelodyneScan{ message { Header header VelodynePacket[] packets }}
+    }}
+  }

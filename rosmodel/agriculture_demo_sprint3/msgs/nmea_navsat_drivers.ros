@@ -1,0 +1,14 @@
+PackageSet {
+	Package nmea_navsat_driver{ Specs{
+		TopicSpec NavSatInfo {},
+		TopicSpec NavSatHeading {},
+		TopicSpec NavSatOrientation {},
+		TopicSpec NavSatHeadingOnly {},
+		TopicSpec NavSatErrorStatistics {}
+		
+			
+		}
+	}
+		
+		
+	}

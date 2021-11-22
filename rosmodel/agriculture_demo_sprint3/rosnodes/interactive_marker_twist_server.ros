@@ -1,0 +1,8 @@
+PackageSet {
+  CatkinPackage interactive_marker_twist_server {
+//    FromGitRepo "https://github.com/ros-visualization/interactive_marker_twist_server" 
+    Artifact marker_server {
+      Node { name twist_marker_server
+        Publishers {
+          Publisher { name 'cmd_vel' message 'geometry_msgs.Twist'}}
+}}}}
