@@ -1,0 +1,19 @@
+PackageSet {
+	AmentPackage examples_rclpy_minimal_publisher {
+		FromGitRepo "https://github.com/ros2/examples.git:foxy" 
+		Artifact publisher_local_function { 
+			Node { 
+				name minimal_publisher
+			Publishers {
+				Publisher { name minimal_publisher message "std_msgs.String" }}
+				}}},
+	AmentPackage examples_rclpy_minimal_subscriber {
+		FromGitRepo "https://github.com/ros2/examples.git:foxy" 
+			Artifact subscriber_lambda { 
+				Node { name minimal_subscriber
+				Subscribers {
+					Subscriber { name minimal_subscriber message "std_msgs.String" }}
+				ServiceClients {
+					ServiceClient { name SetBool service "std_srvs.SetBool"}}
+			}}}
+}
