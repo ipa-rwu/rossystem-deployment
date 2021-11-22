@@ -81,6 +81,7 @@ function build_workspace {
                 fi
                 vcs import $ws/src/ < $file
                 rm $file
+            fi
         fi
     done;
     for folder in "$ws/src"/*; do
