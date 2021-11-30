@@ -1,0 +1,35 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+services:
+  ros-master:
+    image: ros:noetic-ros-core
+    networks:
+      - ros
+    command: stdbuf -o L roscore
+
+  communication_ros1_noetic_publisher_stack:
+    image: "kogrob2/communication_ros1_noetic_publisher_stack:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=communication_ros1_noetic_publisher_stack"
+    networks:
+      - ros
+    stdin_open: true
+    tty: true
+    command: stdbuf -o L roslaunch communication_ros1_publisher_stack publisher_stack.launch --wait
+
+  communication_ros1_noetic_subscriber_stack:
+    image: "kogrob2/communication_ros1_noetic_subscriber_stack:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=communication_ros1_noetic_subscriber_stack"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch communication_ros1_subscriber_stack subscriber_stack.launch --wait
+

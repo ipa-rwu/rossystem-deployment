@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="roscpp_tutorials" type="listener" name="subscriber_node" cwd="node" respawn="false" output="screen">
+    <remap from='minimal_subscriber' to='subscriber' />
+  </node>
+
+</launch>

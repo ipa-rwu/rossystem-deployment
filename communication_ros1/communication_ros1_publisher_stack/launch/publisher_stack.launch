@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="roscpp_tutorials" type="talker" name="publisher_node" cwd="node" respawn="false" output="screen">
+    <remap from='minimal_publisher' to='publisher' />
+  </node>
+
+</launch>
