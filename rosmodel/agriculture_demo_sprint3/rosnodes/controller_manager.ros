@@ -1,223 +1,35 @@
+//nodelet
 PackageSet {
   CatkinPackage controller_manager {
     Artifact spawner {
       Node { name controller_spawner
-      	/**Parameters {
-      	  Parameter { name '/hardware_control_loop/loop_hz' type Integer },
-          Parameter { name '/ur_hardware_interface/joints' type List {String,String,String,String,String,String}},
-          Parameter { name '/joint_state_controller/type' type String },
-          Parameter { name '/joint_state_controller/publish_rate' type Integer },
-          Parameter { name '/force_torque_sensor_controller/type' type String },
-          Parameter { name '/force_torque_sensor_controller/publish_rate' type Integer },
-          Parameter { name '/speed_scaling_state_controller/type' type String },
-          Parameter { name '/speed_scaling_state_controller/publish_rate' type Integer },
-          Parameter { name 'scaled_pos_joint_traj_controller' type Struct
-			{'type' String,
-			joints List {String,String,String,String,String,String},
-			constraints Struct {
-			goal_time Double,
-			stopped_velocity_tolerance Double,
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_lift_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			elbow_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_1_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_2_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_3_joint Struct {
-			trajectory Double,
-			'goal' Double}},
-			stop_trajectory_duration Double,
-			state_publish_rate Double,
-			action_monitor_rate Integer
-		  }},
-          Parameter { name 'pos_joint_traj_controller' type Struct
-			{'type' String,
-			joints List {String,String,String,String,String,String},
-			constraints Struct {
-			goal_time Double,
-			stopped_velocity_tolerance Double,
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_lift_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			elbow_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_1_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_2_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_3_joint Struct {
-			trajectory Double,
-			'goal' Double}},
-			stop_trajectory_duration Double,
-			state_publish_rate Double,
-			action_monitor_rate Integer
-		  }},
-          Parameter { name 'scaled_vel_joint_traj_controller' type Struct
-			{'type' String,
-			joints List {String,String,String,String,String,String},
-			constraints Struct {
-			goal_time Double,
-			stopped_velocity_tolerance Double,
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_lift_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			elbow_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_1_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_2_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_3_joint Struct {
-			trajectory Double,
-			'goal' Double}},
-			gains Struct {
-			shoulder_pan_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			shoulder_pan_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			shoulder_lift_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			elbow_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			wrist_1_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			wrist_2_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			wrist_3_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer}},
-			stop_trajectory_duration Double,
-			state_publish_rate Double,
-			action_monitor_rate Integer
-	  }},
-          Parameter { name 'vel_joint_traj_controller' type Struct
-			{'type' String,
-			joints List {String,String,String,String,String,String},
-			constraints Struct {
-			goal_time Double,
-			stopped_velocity_tolerance Double,
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_pan_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			shoulder_lift_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			elbow_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_1_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_2_joint Struct {
-			trajectory Double,
-			'goal' Double},
-			wrist_3_joint Struct {
-			trajectory Double,
-			'goal' Double}},
-			gains Struct {
-			shoulder_pan_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			shoulder_pan_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			shoulder_lift_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			elbow_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			wrist_1_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			wrist_2_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer},
-			wrist_3_joint Struct {
-			p Double,
-			i Double,
-			d Double,
-			i_clamp Integer}},
-			velocity_ff Struct {
-			shoulder_pan_joint Double,
-			shoulder_lift_joint Double,
-			elbow_joint Double,
-			wrist_1_joint Double,
-			wrist_2_joint Double,
-			wrist_3_joint Double},
-			stop_trajectory_duration Double,
-			state_publish_rate Double,
-			action_monitor_rate Integer
-		  }},
-          Parameter { name '/joint_group_vel_controller/joints' type List {String,String,String,String,String,String}},
-          Parameter { name '/joint_group_vel_controller/type' type String },
-          Parameter { name '/robot_status_controller/type' type String },
-          Parameter { name '/robot_status_controller/publish_rate' type Integer },
-          Parameter { name '/robot_status_controller/handle_name' type String },
-          Parameter { name 'stopped_controllers' type String }}*/
-}}}}
+      	Parameters {
+            Parameter { name '/jackal_joint_publisher/publish_rate' type Integer },
+            Parameter { name '/jackal_joint_publisher/type' type String },
+          
+            Parameter { name '/jackal_velocity_controller/type' type String },
+            Parameter { name '/jackal_velocity_controller/left_wheel' type List {String, String}},
+            Parameter { name '/jackal_velocity_controller/right_wheel' type List {String, String}},
+            Parameter { name '/jackal_velocity_controller/publish_rate' type Integer },
+            Parameter { name '/jackal_velocity_controller/pose_covariance_diagonal' type List {Double, Double, Double, Double, Double, Double}},
+            Parameter { name '/jackal_velocity_controller/twist_covariance_diagonal' type List {Double, Double, Double, Double, Double, Double}},
+            Parameter { name '/jackal_velocity_controller/cmd_vel_timeout' type Double },
+            Parameter { name '/jackal_velocity_controller/k_l' type Double },
+            Parameter { name '/jackal_velocity_controller/k_r' type Double },
+            Parameter { name '/jackal_velocity_controller/enable_odom_tf' type Boolean },
+            Parameter { name '/jackal_velocity_controller/wheel_separation_multiplier' type Double },
+            Parameter { name '/jackal_velocity_controller/wheel_radius_multiplier' type Double },
+            Parameter { name '/jackal_velocity_controller/linear/x' type Struct
+            {
+              has_velocity_limits Boolean default true,
+              max_velocity Double default 2.0,
+              has_acceleration_limits Boolean default true, 
+              max_acceleration Double default 20.0
+              }},
+            Parameter { name '/jackal_velocity_controller/angular/z' type Struct
+            {
+            'has_velocity_limits' Boolean,
+            'max_velocity' Double,
+            'has_acceleration_limits' Boolean, 
+            'max_acceleration' Double}
+          }}}}}}

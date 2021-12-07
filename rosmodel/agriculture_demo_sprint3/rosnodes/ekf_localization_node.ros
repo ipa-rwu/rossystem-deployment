@@ -4,9 +4,9 @@ PackageSet {
     Artifact ekf_localization_node {
       Node { name ekf_localization_node
 		ServiceServers {
-          ServiceServer { name 'ekf_localization/enable' service 'std_srvs.Empty'},
+          ServiceServer { name 'enable' service 'std_srvs.Empty'},
           ServiceServer { name 'set_pose' service 'robot_localization.SetPose'},
-          ServiceServer { name 'ekf_localization/toggle' service 'robot_localization.ToggleFilterProcessing'}}
+          ServiceServer { name 'toggle' service 'robot_localization.ToggleFilterProcessing'}}
         Publishers {
           Publisher { name 'odometry/filtered' message 'nav_msgs.Odometry'},
           Publisher { name 'diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
@@ -15,14 +15,14 @@ PackageSet {
           Subscriber { name 'imu/data' message 'sensor_msgs.Imu'},
           Subscriber { name 'set_pose' message 'geometry_msgs.PoseWithCovarianceStamped'}}
         Parameters {
-          Parameter { name 'ekf_localization/odom0' type String },
-          Parameter { name 'ekf_localization/imu0' type String },
-          Parameter { name 'ekf_localization/odom0_config' type List {Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean}},
-          Parameter { name 'ekf_localization/odom0_differential' type Boolean },
-          Parameter { name 'ekf_localization/base_link_frame' type String },
-          Parameter { name 'ekf_localization/imu0_differential' type Boolean },
-          Parameter { name 'ekf_localization/imu0_config' type List {Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean}},
-          Parameter { name 'ekf_localization/frequency' type Integer },
-          Parameter { name 'ekf_localization/world_frame' type String },
-          Parameter { name 'ekf_localization/odom_frame' type String }}}
+          Parameter { name 'odom0' type String },
+          Parameter { name 'imu0' type String },
+          Parameter { name 'odom0_config' type List {Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean}},
+          Parameter { name 'odom0_differential' type Boolean },
+          Parameter { name 'base_link_frame' type String },
+          Parameter { name 'imu0_differential' type Boolean },
+          Parameter { name 'imu0_config' type List {Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean,Boolean}},
+          Parameter { name 'frequency' type Integer },
+          Parameter { name 'world_frame' type String },
+          Parameter { name 'odom_frame' type String }}}
 }}}

@@ -10,7 +10,7 @@ PackageSet {
 			Subscriber { name "joy/set_feedback" message "sensor_msgs.JoyFeedbackArray"}
 		}
 		Parameters {
-        	Parameter { name 'joy_node/dev' type String },
-        	Parameter { name 'joy_node/deadzone' type Double },
-        	Parameter { name 'joy_node/autorepeat_rate' type Integer }}}
+        	Parameter { name 'dev' type String },
+        	Parameter { name 'deadzone' type Double },
+        	Parameter { name 'autorepeat_rate' type Integer }}}
 }}}
