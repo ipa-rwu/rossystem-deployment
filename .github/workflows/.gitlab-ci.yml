@@ -1,0 +1,97 @@
+variables:
+  DOCKER_BUILDKIT: 1
+  SUFFIX: ""
+  PREFIX: "${CI_REGISTRY_IMAGE}/${CI_PIPELINE_IID}:"
+  FOLDER: ${CI_JOB_NAME}
+  NAME: ${CI_JOB_NAME}
+  TARGET_LATEST: ${CI_REGISTRY_IMAGE}/${CI_JOB_NAME}:latest
+
+stages:
+  - builder
+  - extra_layer
+  - base_nav
+  - test
+  - deploy
+  - cleanup
+
+default:
+  tags:
+    - local-rwu
+
+.build:
+  stage: ${CI_JOB_NAME}
+  script:
+    - TARGET=$${CI_REGISTRY_IMAGE}/$${NAME}:$${CI_COMMIT_REF_NAME//\\//-}; docker build --cache-from $TARGET --cache-from $TARGET_LATEST --build-arg SUFFIX --build-arg PREFIX -t ${PREFIX}${NAME}${SUFFIX} ${FOLDER}
+
+builder:
+  extends: .build
+  stage: builder
+
+extra_layer:
+  extends: .build
+  stage: extra_layer
+
+base_nav:
+  extends: .build
+  stage: base_nav
+  variables:
+    FOLDER: mobile_base_system/src-gen/base_nav
+
+test:
+  stage: test
+  before_script:
+    - apk --no-cache add coreutils
+  script:
+    - timeout --preserve-status 10s docker run -t --rm ${PREFIX}base_nav${SUFFIX}
+
+.deploy:
+  stage: deploy
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - TARGET=${CI_REGISTRY_IMAGE}/${NAME}:${CI_COMMIT_REF_NAME//\//-}; if [ "$CI_COMMIT_REF_NAME" = "master" ]; then TARGET=$TARGET_LATEST; fi; docker tag ${PREFIX}${NAME}${SUFFIX} ${TARGET} && docker push ${TARGET}
+  variables:
+    TARGET_LATEST: ${CI_REGISTRY_IMAGE}/${NAME}:latest
+
+deploy:builder:
+  extends: .deploy
+  variables:
+    NAME: builder
+
+deploy:extra_layer:
+  extends: .deploy
+  variables:
+    NAME: extra_layer
+
+deploy:base_nav:
+  extends: .deploy
+  variables:
+    NAME: base_nav
+
+deploy:master:builder:
+  extends: .deploy
+  variables:
+    NAME: builder
+    TARGET_LATEST: ${CI_REGISTRY_IMAGE}:builder
+  only:
+    - master
+deploy:master:extra_layer:
+  extends: .deploy
+  variables:
+    NAME: extra_layer
+    TARGET_LATEST: ${CI_REGISTRY_IMAGE}:extra_layer
+  only:
+    - master
+deploy:master:base_nav:
+  extends: .deploy
+  variables:
+    NAME: base_nav
+    TARGET_LATEST: ${CI_REGISTRY_IMAGE}:latest
+  only:
+    - master
+
+cleanup_job:
+  stage: cleanup
+  script:
+    - docker rmi -f $(docker images -q "${PREFIX}*")
+  when: always

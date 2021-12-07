@@ -1,0 +1,41 @@
+# syntax=docker/dockerfile:experimental
+ARG SUFFIX=
+ARG BUILDER_SUFFIX=:ros1
+ARG PREFIX=
+FROM ${PREFIX}extra_layer_jackal_teleop_stacks_sp3_noetic_base${SUFFIX} as base
+FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
+
+FROM base as build
+COPY . /root/ws/src/jackal_teleop_stacks_sp3_base/
+RUN --mount=type=bind,from=builder,target=/builder \
+    apt-get update -qq && \
+    /builder/workspace.bash build_workspace /root/ws && \
+    rm -rf /var/lib/apt/lists/*
+
+FROM build as test
+RUN --mount=type=bind,from=builder,target=/builder \
+    apt-get update -qq && \
+    /builder/workspace.bash test_workspace /root/ws && \
+    rm -rf /var/lib/apt/lists/*
+
+FROM build as install
+RUN --mount=type=bind,from=builder,target=/builder \
+    apt-get update -qq && \
+    /builder/workspace.bash install_workspace /root/ws && \
+    rm -rf /var/lib/apt/lists/*
+
+FROM install as full
+RUN --mount=type=bind,from=builder,target=/builder \
+    apt-get update -qq && \
+    /builder/workspace.bash install_depends /root/ws && \
+    rm -rf /var/lib/apt/lists/*
+
+FROM base as deploy
+RUN --mount=type=bind,from=builder,target=/builder --mount=type=bind,target=/root/ws,from=install,source=/root/ws \
+    apt-get update -qq && \
+    /builder/workspace.bash install_depends /root/ws && \
+    rm -rf /var/lib/apt/lists/*
+COPY --from=install /opt/ros/$ROS_DISTRO /opt/ros/$ROS_DISTRO
+
+FROM deploy as launch
+CMD ["roslaunch", "jackal_teleop_stacks_sp3_base", "base.launch"]

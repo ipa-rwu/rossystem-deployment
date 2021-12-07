@@ -1,0 +1,46 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+services:
+  ros-master:
+    image: ros:noetic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  jackal_teleop_stacks_sp3_noetic_base:
+    image: "jackal_teleop_stacks_sp3_noetic_base:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=jackal_teleop_stacks_sp3_noetic_base"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch jackal_teleop_stacks_sp3_base base.launch --wait
+
+  jackal_teleop_stacks_sp3_noetic_teleop:
+    image: "jackal_teleop_stacks_sp3_noetic_teleop:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=jackal_teleop_stacks_sp3_noetic_teleop"
+    networks:
+      - ros
+    devices:
+      - "/dev/input/ps4:/dev/input/ps4"
+    command: stdbuf -o L roslaunch jackal_teleop_stacks_sp3_teleop teleop.launch --wait
+
+  jackal_teleop_stacks_sp3_noetic_localization:
+    image: "jackal_teleop_stacks_sp3_noetic_localization:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=jackal_teleop_stacks_sp3_noetic_localization"
+    networks:
+      - ros
+    command: stdbuf -o L roslaunch jackal_teleop_stacks_sp3_localization localization.launch --wait
+

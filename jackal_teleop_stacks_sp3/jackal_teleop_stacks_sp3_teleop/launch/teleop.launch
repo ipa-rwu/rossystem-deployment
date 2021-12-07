@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux" cwd="node" respawn="false" output="screen">
+  <rosparam>
+locks:
+- topic : e_stop
+  priority : 255
+  name : e_stop
+  timeout : 0.0
+  </rosparam>
+  <rosparam>
+topics:
+- topic : joy_teleop/cmd_vel
+  priority : 10
+  name : joy
+  timeout : 0.5
+- topic : bluetooth_teleop/cmd_vel
+  priority : 9
+  name : bt_joy
+  timeout : 0.5
+- topic : twist_marker_server/cmd_vel
+  priority : 8
+  name : interactive_marker
+  timeout : 0.5
+- topic : cmd_vel
+  priority : 1
+  name : external
+  timeout : 0.5
+  </rosparam>
+  </node>
+  <node pkg="joy" type="joy_node" name="joy_node" ns="bluetooth_teleop" cwd="node" respawn="false" output="screen">
+<param name="dev" value="/dev/input/ps4" />
+<param name="deadzone" value="0.1" />
+<param name="autorepeat_rate" value="20" />
+  </node>
+  <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy" ns="bluetooth_teleop" cwd="node" respawn="false" output="screen">
+<param name="enable_button" value="4" />
+<param name="scale_angular" value="1.4" />
+<param name="enable_turbo_button" value="5" />
+<param name="scale_linear" value="0.4" />
+<param name="scale_linear_turbo" value="2.0" />
+<param name="axis_angular" value="0" />
+<param name="axis_linear" value="1" />
+  </node>
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" ns="twist_marker_server" cwd="node" respawn="false" output="screen">
+    <remap from='cmd_vel_out' to='jackal_velocity_controller/cmd_vel' />
+  </node>
+
+</launch>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter" cwd="node" respawn="false" output="screen">
+    <param name="mag_bias_z" value="0.0" />
+    <param name="publish_tf" value="false" />
+    <param name="gain" value="0.1" />
+    <param name="use_mag" value="false" />
+    <param name="zeta" value="0.001" />
+    <param name="mag_bias_x" value="0.0" />
+    <param name="mag_bias_y" value="0.0" />
+  </node>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" cwd="node" respawn="false" output="screen">
+    <param name="odom0" value="/jackal_velocity_controller/odom" />
+    <param name="imu0" value="/imu/data" />
+    <param name="imu0_config" value="[false,false,false,false,false,false,true,true,true,false,false,true,false,false,false]" />
+    <param name="odom0_differential" value="false" />
+    <param name="base_link_frame" value="base_link" />
+    <param name="imu0_differential" value="false" />
+    <param name="imu0_config" value="[false,false,false,true,true,true,false,false,false,true,true,true,false,false,false]" />
+    <param name="frequency" value="50" />
+    <param name="world_frame" value="odom" />
+    <param name="odom_frame" value="odom" />
+  </node>
+
+</launch>
