@@ -1,0 +1,8 @@
+ComponentInterface { name controller_spawner
+	FromRosNode "controller_manager.spawner.controller_spawner"
+	
+		RosParameters{
+			RosParameter "/jackal_joint_publisher" { RefParameter "controller_manager.spawner.controller_spawner./jackal_joint_publisher"},
+			RosParameter "/jackal_velocity_controller" { RefParameter "controller_manager.spawner.controller_spawner./jackal_velocity_controller"}
+		}
+}

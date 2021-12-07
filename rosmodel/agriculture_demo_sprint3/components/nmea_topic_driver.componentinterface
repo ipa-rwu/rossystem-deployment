@@ -1,0 +1,17 @@
+ComponentInterface { name nmea_topic_driver
+	FromRosNode "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver"
+	RosPublishers{
+		RosPublisher "time_reference" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.time_reference"},
+		RosPublisher "vel" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.vel"},
+		RosPublisher "fix" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.fix"},
+		RosPublisher "error_statistics" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.error_statistics"},
+		RosPublisher "heading" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.heading"},
+		RosPublisher "heading_only" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.heading_only"},
+		RosPublisher "info" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.info"},
+		RosPublisher "orientation" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.orientation"}
+	}
+	RosSubscribers{
+		RosSubscriber "nmea_sentence" { RefSubscriber "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.nmea_sentence"}
+	}
+	
+}

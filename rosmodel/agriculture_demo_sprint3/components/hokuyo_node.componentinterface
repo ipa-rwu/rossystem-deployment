@@ -1,0 +1,7 @@
+ComponentInterface { name hokuyo_node
+	FromRosNode "hokuyo_node.hokuyo_node.hokuyo_node"
+	RosPublishers{
+		RosPublisher "scan" { RefPublisher "hokuyo_node.hokuyo_node.hokuyo_node.scan"}
+	}
+	
+}

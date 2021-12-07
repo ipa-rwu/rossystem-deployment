@@ -1,0 +1,4 @@
+ComponentInterface { name rosserial_message_info
+	FromRosNode "rosserial_python.message_info_service.rosserial_message_info"
+	
+}

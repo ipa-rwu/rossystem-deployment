@@ -1,0 +1,7 @@
+ComponentInterface { name image_proc
+	FromRosNode "image_proc.image_proc.image_proc"
+	
+		RosParameters{
+			RosParameter "queue_size" { RefParameter "image_proc.image_proc.image_proc.queue_size"}
+		}
+}

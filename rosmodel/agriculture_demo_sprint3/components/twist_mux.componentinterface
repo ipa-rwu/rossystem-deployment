@@ -1,0 +1,19 @@
+ComponentInterface { name twist_mux
+	FromRosNode "twist_mux.twist_mux.twist_mux"
+	RosPublishers{
+		RosPublisher "diagnostics" { RefPublisher "twist_mux.twist_mux.twist_mux.diagnostics"},
+		RosPublisher "cmd_vel_out" { RefPublisher "twist_mux.twist_mux.twist_mux.cmd_vel_out"}
+	}
+	RosSubscribers{
+		RosSubscriber "joy_teleop/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.joy_teleop/cmd_vel"},
+		RosSubscriber "bluetooth_teleop/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.bluetooth_teleop/cmd_vel"},
+		RosSubscriber "twist_marker_server/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.twist_marker_server/cmd_vel"},
+		RosSubscriber "e_stop" { RefSubscriber "twist_mux.twist_mux.twist_mux.e_stop"},
+		RosSubscriber "cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel"}
+	}
+	
+		RosParameters{
+			RosParameter "locks" { RefParameter "twist_mux.twist_mux.twist_mux.locks"},
+			RosParameter "topics" { RefParameter "twist_mux.twist_mux.twist_mux.topics"}
+		}
+}

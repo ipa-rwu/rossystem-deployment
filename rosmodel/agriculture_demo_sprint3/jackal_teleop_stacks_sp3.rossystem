@@ -1,0 +1,163 @@
+RosSystem { Name 'jackal_teleop_stacks_sp3'
+    RosComponentStacks (
+        ComponentStack { name base
+            RosComponents ( 
+               ComponentInterface { name jackal_node FromRosNode "jackal_base.jackal_node.jackal_node"
+                    RosPublishers {
+                        RosPublisher "cmd_drive" { RefPublisher "jackal_base.jackal_node.jackal_node.cmd_drive" } ,
+                        RosPublisher "wifi_connected" { RefPublisher "jackal_base.jackal_node.jackal_node.wifi_connected" } ,
+                        RosPublisher "feedback" { RefPublisher "jackal_base.jackal_node.jackal_node.feedback" } ,
+                        RosPublisher "diagnostics" { RefPublisher "jackal_base.jackal_node.jackal_node.diagnostics" } ,
+                        RosPublisher "joint_states" { RefPublisher "jackal_base.jackal_node.jackal_node.joint_states" } ,
+                        RosPublisher "status" { RefPublisher "jackal_base.jackal_node.jackal_node.status" } ,
+                        RosPublisher "navsat/nmea_sentence" { RefPublisher "jackal_base.jackal_node.jackal_node.navsat/nmea_sentence" } ,
+                        RosPublisher "jackal_velocity_controller/parameter_descriptions" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/parameter_descriptions" } ,
+                        RosPublisher "imu/mag" { RefPublisher "jackal_base.jackal_node.jackal_node.imu/mag" } ,
+                        RosPublisher "imu/data_raw" { RefPublisher "jackal_base.jackal_node.jackal_node.imu/data_raw" } ,
+                        RosPublisher "jackal_velocity_controller/parameter_updates" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/parameter_updates" } ,
+                        RosPublisher "jackal_velocity_controller/odom" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/odom" } ,
+                          RosPublisher "tf" { RefPublisher "jackal_base.jackal_node.jackal_node.tf" }} 
+                    RosSubscribers { 
+                        RosSubscriber "jackal_velocity_controller/cmd_vel" { RefSubscriber "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/cmd_vel" } ,
+                          RosSubscriber "feedback" { RefSubscriber "jackal_base.jackal_node.jackal_node.feedback" } ,
+                          RosSubscriber "status" { RefSubscriber "jackal_base.jackal_node.jackal_node.status" } ,
+                          RosSubscriber "cmd_drive" { RefSubscriber "jackal_base.jackal_node.jackal_node.cmd_drive" } ,
+                          RosSubscriber "imu/data_raw" { RefSubscriber "jackal_base.jackal_node.jackal_node.imu/data_raw" } ,
+                          RosSubscriber "navsat/nmea_sentence" { RefSubscriber "jackal_base.jackal_node.jackal_node.navsat/nmea_sentence" } ,
+                          RosSubscriber "wifi_connected" { RefSubscriber "jackal_base.jackal_node.jackal_node.wifi_connected" }}  
+                    RosSrvServers { 
+                          RosServiceServer "controller_manager/reload_controller_libraries" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/reload_controller_libraries" } ,
+                          RosServiceServer "controller_manager/load_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/load_controller" } ,
+                          RosServiceServer "controller_manager/switch_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/switch_controller" } ,
+                          RosServiceServer "jackal_velocity_controller/set_parameters" { RefServer "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/set_parameters" } ,
+                          RosServiceServer "controller_manager/list_controllers" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controllers" } ,
+                          RosServiceServer "controller_manager/list_controller_types" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controller_types" } ,
+                          RosServiceServer "controller_manager/unload_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/unload_controller" }}
+                   RosParameters { 
+                          RosParameter "require/publishers" { RefParameter "jackal_base.jackal_node.jackal_node.require/publishers" value {"status", "feedback", "imu/data_raw", "navsat/nmea_sentence"} },
+                          RosParameter "require/subscribers" { RefParameter "jackal_base.jackal_node.jackal_node.require/subscribers" value {"cmd_drive", "wifi_connected" }} ,
+                          RosParameter "wireless_interface" { RefParameter "jackal_base.jackal_node.jackal_node.wireless_interface" value "wlp2s0"} ,
+                          RosParameter "port" { RefParameter "jackal_base.jackal_node.jackal_node.port" value "/dev/jackal"}}},
+                         
+                 ComponentInterface { name  nmea_topic_driver NameSpace navsat FromRosNode "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver" 
+                    RosPublishers { 
+                        RosPublisher "time_reference" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.time_reference" } ,
+                        RosPublisher "vel" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.vel" } ,
+                        RosPublisher "fix" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.fix" } ,
+                        RosPublisher "error_statistics" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.error_statistics" } ,
+                        RosPublisher "heading" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.heading" } ,
+                        RosPublisher "heading_only" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.heading_only" } ,
+                        RosPublisher "info" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.info" } ,
+                        RosPublisher "orientation" { RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.orientation" }} 
+                    RosSubscribers { 
+                        RosSubscriber "nmea_sentence" { RefSubscriber "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.nmea_sentence" }}} ,
+                        
+                ComponentInterface { name rosserial_message_info FromRosNode "rosserial_python.message_info_service.rosserial_message_info" } ,
+          
+                ComponentInterface { name  controller_spawner FromRosNode "controller_manager.spawner.controller_spawner"})},
+                
+        ComponentStack { name teleop 
+            RosComponents (
+                ComponentInterface { name twist_mux FromRosNode "twist_mux.twist_mux.twist_mux" 
+                    RosPublishers { 
+                        RosPublisher diagnostics { RefPublisher "twist_mux.twist_mux.twist_mux.diagnostics" } , RosPublisher cmd_vel_out { RefPublisher "twist_mux.twist_mux.twist_mux.cmd_vel_out" } } RosSubscribers { RosSubscriber "joy_teleop/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.joy_teleop/cmd_vel" } , RosSubscriber "bluetooth_teleop/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.bluetooth_teleop/cmd_vel" } , RosSubscriber "twist_marker_server/cmd_vel" { RefSubscriber "twist_mux.twist_mux.twist_mux.twist_marker_server/cmd_vel" } , RosSubscriber e_stop { RefSubscriber "twist_mux.twist_mux.twist_mux.e_stop" } , RosSubscriber cmd_vel { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel" } } 
+                    RosParameters {
+                        RosParameter "locks" { RefParameter "twist_mux.twist_mux.twist_mux.locks" value {
+                                                            {{'topic' { value 'e_stop'}}, 
+                                                            { 'priority' { value 255 }},
+                                                            {'name' { value 'e_stop'}},
+                                                            { 'timeout' { value 0.0}}}}}, 
+                    RosParameter "topics" { RefParameter "twist_mux.twist_mux.twist_mux.topics" value {
+                            {{'topic' { value 'joy_teleop/cmd_vel'}},
+                                { 'priority'  { value 10}},
+                                { 'name'  { value 'joy'}},
+                                { 'timeout'  { value 0.5}}
+                            },
+                            {{'topic'  { value 'bluetooth_teleop/cmd_vel'}},
+                            	{ 'priority'  { value 9}},
+                            	{ 'name'  { value 'bt_joy'}},
+                            	{ 'timeout'  { value 0.5}}
+                            }, 
+                            {{'topic'  { value 'twist_marker_server/cmd_vel'}},
+                            	{ 'priority'  { value 8}},
+                            	{ 'name'  { value 'interactive_marker'}},
+                            	{ 'timeout'  { value 0.5}}
+                            }, 
+                            {{'topic'  { value 'cmd_vel'}},
+                            	{ 'priority'  { value 1}},
+                            	{ 'name'  { value 'external'}},
+                            	{ 'timeout'  { value 0.5}}
+                            }}
+                            }}},
+                               
+                ComponentInterface { name joy_node NameSpace bluetooth_teleop FromRosNode "joy.joy_node.joy_node" 
+                    RosPublishers { 
+                        RosPublisher "joy" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.joy" },
+                        RosPublisher "diagnostics" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.diagnostics" }} 
+                    RosSubscribers { 
+                        RosSubscriber "joy/set_feedback" { ns bluetooth_teleop RefSubscriber "joy.joy_node.joy_node.joy/set_feedback" }}
+                    RosParameters {
+                        RosParameter "joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.dev" value "/dev/input/ps4"} ,
+                        RosParameter "joy_node/deadzone" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.deadzone" value 0.1} ,
+                        RosParameter "joy_node/autorepeat_rate" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.autorepeat_rate" value 20}}},
+                
+                ComponentInterface { name teleop_twist_joy NameSpace bluetooth_teleop FromRosNode "teleop_twist_joy.teleop_node.teleop_node" 
+                    RosPublishers {
+                        RosPublisher "cmd_vel" { RefPublisher "teleop_twist_joy.teleop_node.teleop_node.cmd_vel" }} 
+                    RosSubscribers { 
+                        RosSubscriber "joy" { RefSubscriber "teleop_twist_joy.teleop_node.teleop_node.joy" }}
+                    RosParameters {
+                        // ps4                        
+                        RosParameter "enable_button" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.enable_button" value 4} ,
+                        RosParameter "scale_angular" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_angular" value 1.4} ,
+                        RosParameter "enable_turbo_button" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.enable_turbo_button" value 5} ,
+                        RosParameter "scale_linear" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_linear" value 0.4} ,
+                        RosParameter "scale_linear_turbo" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_linear_turbo" value 2.0} ,
+                        RosParameter "axis_angular" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.axis_angular" value 0} ,
+                        RosParameter "axis_linear" { RefParameter "teleop_twist_joy.teleop_node.teleop_node.axis_linear" value 1}}} ,
+                
+                ComponentInterface { name twist_marker_server NameSpace twist_marker_server FromRosNode "interactive_marker_twist_server.marker_server.twist_marker_server"
+                    RosPublishers {
+                        RosPublisher "jackal_velocity_controller/cmd_vel" { RefPublisher "twist_mux.twist_mux.twist_mux.cmd_vel_out"}}}
+                    )
+                },
+                
+        ComponentStack { name localization  
+            RosComponents (
+               ComponentInterface { name imu_filter FromRosNode "imu_filter_madgwick.imu_filter_node.imu_filter_node" 
+                    RosPublishers { RosPublisher data { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.data" } ,
+                        RosPublisher parameter_descriptions { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.parameter_descriptions" } ,
+                        RosPublisher parameter_updates { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.parameter_updates" } ,
+                        RosPublisher tf { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.tf" }} 
+                    RosSubscribers { 
+                        RosSubscriber data_raw { RefSubscriber "imu_filter_madgwick.imu_filter_node.imu_filter_node.data_raw" }}  
+                    RosSrvServers { 
+                        RosServiceServer set_parameters { RefServer "imu_filter_madgwick.imu_filter_node.imu_filter_node.set_parameters" }} 
+                    RosParameters { 
+                        RosParameter mag_bias_z { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_z" value 0.0 } ,
+                        RosParameter publish_tf { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.publish_tf" value false } ,
+                        RosParameter orientation_stddev { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.orientation_stddev" } ,
+                        RosParameter gain { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.gain" value 0.1} ,
+                        RosParameter use_mag { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.use_mag" value false} ,
+                        RosParameter zeta { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.zeta" value 0.001} ,
+                        RosParameter use_magnetic_field_msg { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.use_magnetic_field_msg" } ,
+                        RosParameter mag_bias_x { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_x" value 0.0 } ,
+                        RosParameter mag_bias_y { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_y" value 0.0 }}} ,
+               
+               ComponentInterface { name  ekf_localization FromRosNode "robot_localization.ekf_localization_node.ekf_localization_node" 
+               	    RosParameters {
+               	        RosParameter odom0 { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom0" value "/jackal_velocity_controller/odom"},
+                        RosParameter imu0 { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0" value "/imu/data" }, 
+                        RosParameter odom_config { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0_config" 
+                        	                       value {false,false,false,false,false,false,true,true,true,false,false,true,false,false,false} },
+                   		RosParameter odom0_differential { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom0_differential" value false },
+                   	    RosParameter base_link_frame { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.base_link_frame" value "base_link" },
+                   	    RosParameter imu0_differential { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0_differential" value false },
+                   	    RosParameter imu0_config { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0_config" value {false,false,false,true,true,true,false,false,false,true,true,true,false,false,false} },
+                   	    RosParameter frequency { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.frequency" value 50 },
+                        RosParameter world_frame { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.world_frame" value "odom" },
+                        RosParameter odom_frame { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom_frame" value "odom" }
+               	}
+               }
+               )})
+}

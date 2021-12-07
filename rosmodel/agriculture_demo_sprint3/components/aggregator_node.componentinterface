@@ -1,0 +1,14 @@
+ComponentInterface { name aggregator_node
+	FromRosNode "diagnostic_aggregator.aggregator_node.aggregator_node"
+	RosPublishers{
+		RosPublisher "/diagnostics_agg" { RefPublisher "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics_agg"},
+		RosPublisher "/diagnostics_toplevel_state" { RefPublisher "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics_toplevel_state"}
+	}
+	RosSubscribers{
+		RosSubscriber "/diagnostics" { RefSubscriber "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics"}
+	}
+	RosSrvClients{
+		RosServiceClient "add_diagnostics" { RefClient "diagnostic_aggregator.aggregator_node.aggregator_node.add_diagnostics"}
+	}
+	
+}

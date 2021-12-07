@@ -1,0 +1,30 @@
+ComponentInterface { name ekf_localization_node
+	FromRosNode "robot_localization.ekf_localization_node.ekf_localization_node"
+	RosPublishers{
+		RosPublisher "odometry/filtered" { RefPublisher "robot_localization.ekf_localization_node.ekf_localization_node.odometry/filtered"},
+		RosPublisher "diagnostics" { RefPublisher "robot_localization.ekf_localization_node.ekf_localization_node.diagnostics"}
+	}
+	RosSubscribers{
+		RosSubscriber "jackal_velocity_controller/odom" { RefSubscriber "robot_localization.ekf_localization_node.ekf_localization_node.jackal_velocity_controller/odom"},
+		RosSubscriber "imu/data" { RefSubscriber "robot_localization.ekf_localization_node.ekf_localization_node.imu/data"},
+		RosSubscriber "set_pose" { RefSubscriber "robot_localization.ekf_localization_node.ekf_localization_node.set_pose"}
+	}
+	RosSrvServers{
+		RosServiceServer "enable" { RefServer "robot_localization.ekf_localization_node.ekf_localization_node.enable"},
+		RosServiceServer "set_pose" { RefServer "robot_localization.ekf_localization_node.ekf_localization_node.set_pose"},
+		RosServiceServer "toggle" { RefServer "robot_localization.ekf_localization_node.ekf_localization_node.toggle"}
+	}
+	
+		RosParameters{
+			RosParameter "odom0" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom0"},
+			RosParameter "imu0" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0"},
+			RosParameter "odom0_config" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom0_config"},
+			RosParameter "odom0_differential" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom0_differential"},
+			RosParameter "base_link_frame" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.base_link_frame"},
+			RosParameter "imu0_differential" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0_differential"},
+			RosParameter "imu0_config" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.imu0_config"},
+			RosParameter "frequency" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.frequency"},
+			RosParameter "world_frame" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.world_frame"},
+			RosParameter "odom_frame" { RefParameter "robot_localization.ekf_localization_node.ekf_localization_node.odom_frame"}
+		}
+}

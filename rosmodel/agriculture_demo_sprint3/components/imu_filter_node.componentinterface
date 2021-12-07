@@ -1,0 +1,27 @@
+ComponentInterface { name imu_filter_node
+	FromRosNode "imu_filter_madgwick.imu_filter_node.imu_filter_node"
+	RosPublishers{
+		RosPublisher "data" { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.data"},
+		RosPublisher "parameter_descriptions" { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.parameter_descriptions"},
+		RosPublisher "parameter_updates" { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.parameter_updates"},
+		RosPublisher "tf" { RefPublisher "imu_filter_madgwick.imu_filter_node.imu_filter_node.tf"}
+	}
+	RosSubscribers{
+		RosSubscriber "data_raw" { RefSubscriber "imu_filter_madgwick.imu_filter_node.imu_filter_node.data_raw"}
+	}
+	RosSrvServers{
+		RosServiceServer "set_parameters" { RefServer "imu_filter_madgwick.imu_filter_node.imu_filter_node.set_parameters"}
+	}
+	
+		RosParameters{
+			RosParameter "mag_bias_z" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_z"},
+			RosParameter "publish_tf" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.publish_tf"},
+			RosParameter "orientation_stddev" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.orientation_stddev"},
+			RosParameter "gain" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.gain"},
+			RosParameter "use_mag" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.use_mag"},
+			RosParameter "zeta" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.zeta"},
+			RosParameter "use_magnetic_field_msg" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.use_magnetic_field_msg"},
+			RosParameter "mag_bias_x" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_x"},
+			RosParameter "mag_bias_y" { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_y"}
+		}
+}

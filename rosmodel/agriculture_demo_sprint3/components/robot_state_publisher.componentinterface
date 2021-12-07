@@ -1,0 +1,11 @@
+ComponentInterface { name robot_state_publisher
+	FromRosNode "robot_state_publisher.robot_state_publisher.robot_state_publisher"
+	RosPublishers{
+		RosPublisher "/tf" { RefPublisher "robot_state_publisher.robot_state_publisher.robot_state_publisher./tf"},
+		RosPublisher "/tf_static" { RefPublisher "robot_state_publisher.robot_state_publisher.robot_state_publisher./tf_static"}
+	}
+	RosSubscribers{
+		RosSubscriber "joint_states" { RefSubscriber "robot_state_publisher.robot_state_publisher.robot_state_publisher.joint_states"}
+	}
+	
+}

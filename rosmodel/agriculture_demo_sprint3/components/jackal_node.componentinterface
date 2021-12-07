@@ -1,0 +1,43 @@
+ComponentInterface { name jackal_node
+	FromRosNode "jackal_base.jackal_node.jackal_node"
+	RosPublishers{
+		RosPublisher "cmd_drive" { RefPublisher "jackal_base.jackal_node.jackal_node.cmd_drive"},
+		RosPublisher "wifi_connected" { RefPublisher "jackal_base.jackal_node.jackal_node.wifi_connected"},
+		RosPublisher "feedback" { RefPublisher "jackal_base.jackal_node.jackal_node.feedback"},
+		RosPublisher "diagnostics" { RefPublisher "jackal_base.jackal_node.jackal_node.diagnostics"},
+		RosPublisher "joint_states" { RefPublisher "jackal_base.jackal_node.jackal_node.joint_states"},
+		RosPublisher "status" { RefPublisher "jackal_base.jackal_node.jackal_node.status"},
+		RosPublisher "navsat/nmea_sentence" { RefPublisher "jackal_base.jackal_node.jackal_node.navsat/nmea_sentence"},
+		RosPublisher "jackal_velocity_controller/parameter_descriptions" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/parameter_descriptions"},
+		RosPublisher "imu/mag" { RefPublisher "jackal_base.jackal_node.jackal_node.imu/mag"},
+		RosPublisher "imu/data_raw" { RefPublisher "jackal_base.jackal_node.jackal_node.imu/data_raw"},
+		RosPublisher "jackal_velocity_controller/parameter_updates" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/parameter_updates"},
+		RosPublisher "jackal_velocity_controller/odom" { RefPublisher "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/odom"},
+		RosPublisher "tf" { RefPublisher "jackal_base.jackal_node.jackal_node.tf"}
+	}
+	RosSubscribers{
+		RosSubscriber "jackal_velocity_controller/cmd_vel" { RefSubscriber "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/cmd_vel"},
+		RosSubscriber "feedback" { RefSubscriber "jackal_base.jackal_node.jackal_node.feedback"},
+		RosSubscriber "status" { RefSubscriber "jackal_base.jackal_node.jackal_node.status"},
+		RosSubscriber "cmd_drive" { RefSubscriber "jackal_base.jackal_node.jackal_node.cmd_drive"},
+		RosSubscriber "imu/data_raw" { RefSubscriber "jackal_base.jackal_node.jackal_node.imu/data_raw"},
+		RosSubscriber "navsat/nmea_sentence" { RefSubscriber "jackal_base.jackal_node.jackal_node.navsat/nmea_sentence"},
+		RosSubscriber "wifi_connected" { RefSubscriber "jackal_base.jackal_node.jackal_node.wifi_connected"}
+	}
+	RosSrvServers{
+		RosServiceServer "controller_manager/reload_controller_libraries" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/reload_controller_libraries"},
+		RosServiceServer "controller_manager/load_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/load_controller"},
+		RosServiceServer "controller_manager/switch_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/switch_controller"},
+		RosServiceServer "jackal_velocity_controller/set_parameters" { RefServer "jackal_base.jackal_node.jackal_node.jackal_velocity_controller/set_parameters"},
+		RosServiceServer "controller_manager/list_controllers" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controllers"},
+		RosServiceServer "controller_manager/list_controller_types" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controller_types"},
+		RosServiceServer "controller_manager/unload_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/unload_controller"}
+	}
+	
+		RosParameters{
+			RosParameter "require/publishers" { RefParameter "jackal_base.jackal_node.jackal_node.require/publishers"},
+			RosParameter "require/subscribers" { RefParameter "jackal_base.jackal_node.jackal_node.require/subscribers"},
+			RosParameter "wireless_interface" { RefParameter "jackal_base.jackal_node.jackal_node.wireless_interface"},
+			RosParameter "port" { RefParameter "jackal_base.jackal_node.jackal_node.port"}
+		}
+}

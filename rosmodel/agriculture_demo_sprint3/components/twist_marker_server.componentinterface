@@ -1,0 +1,7 @@
+ComponentInterface { name twist_marker_server
+	FromRosNode "interactive_marker_twist_server.marker_server.twist_marker_server"
+	RosPublishers{
+		RosPublisher "cmd_vel" { RefPublisher "interactive_marker_twist_server.marker_server.twist_marker_server.cmd_vel"}
+	}
+	
+}

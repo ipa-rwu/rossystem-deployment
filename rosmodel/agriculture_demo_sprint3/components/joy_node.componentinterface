@@ -1,0 +1,16 @@
+ComponentInterface { name joy_node
+	FromRosNode "joy.joy_node.joy_node"
+	RosPublishers{
+		RosPublisher "joy" { RefPublisher "joy.joy_node.joy_node.joy"},
+		RosPublisher "diagnostics" { RefPublisher "joy.joy_node.joy_node.diagnostics"}
+	}
+	RosSubscribers{
+		RosSubscriber "joy/set_feedback" { RefSubscriber "joy.joy_node.joy_node.joy/set_feedback"}
+	}
+	
+		RosParameters{
+			RosParameter "dev" { RefParameter "joy.joy_node.joy_node.dev"},
+			RosParameter "deadzone" { RefParameter "joy.joy_node.joy_node.deadzone"},
+			RosParameter "autorepeat_rate" { RefParameter "joy.joy_node.joy_node.autorepeat_rate"}
+		}
+}
