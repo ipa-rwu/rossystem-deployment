@@ -18,6 +18,8 @@ services:
       - "ROS_HOSTNAME=jackal_teleop_stacks_sp3_noetic_base"
     networks:
       - ros
+    devices:
+      - "/dev/jackal:/dev/jackal"
     command: stdbuf -o L roslaunch jackal_teleop_stacks_sp3_base base.launch --wait
 
   jackal_teleop_stacks_sp3_noetic_teleop:
