@@ -67,20 +67,20 @@
 
   <!-- Teleoperation via joystick and rviz interactive markers -->
   <!-- from jackal_control/launch/teleop.launch" /> -->
-  <arg name="joy_dev" default="$(optenv JACKAL_JOY_DEVICE /dev/input/js1)" />
+  <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="joystick" default="true" />
 
   <group ns="bluetooth_teleop" if="$(arg joystick)">
 
-    <group unless="$(optenv JACKAL_PS3 0)" >
-      <rosparam command="load" file="$(find jackal_control)/config/teleop_ps4.yaml" />
-      <param name="joy_node/dev" value="$(arg joy_dev)" />
-    </group>
+      <param name="enable_button" value="2" />
+    <param name="scale_angular" value="0.4" />
+    <param name="enable_turbo_button" value="5" />
+    <param name="scale_linear" value="0.7" />
+    <param name="scale_linear_turbo" value="1.5" />
+    <param name="axis_angular" value="0" />
+    <param name="axis_linear" value="1" />
 
-    <group if="$(optenv JACKAL_PS3 0)" >
-      <rosparam command="load" file="$(find jackal_control)/config/teleop_ps3.yaml" />
       <param name="joy_node/dev" value="$(arg joy_dev)" />
-    </group>
 
     <node pkg="joy" type="joy_node" name="joy_node" />
 
