@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="jackal_port" default="/dev/jackal" />
+
+  <include file="$(find jackal_description)/launch/description.launch" />
+
+  <node pkg="jackal_base" type="jackal_node" name="jackal_node">
+    <rosparam>
+      # TODO: Specify these in code rather than here.
+      require:
+        publishers:
+          - status
+          - feedback
+          - imu/data_raw
+          - navsat/nmea_sentence
+        subscribers:
+          - cmd_drive
+          - wifi_connected
+    </rosparam>
+    <param name="port" value="$(arg jackal_port)" />
+    <param name="wireless_interface" value="$(optenv JACKAL_WIRELESS_INTERFACE wlp2s0)" />
+  </node>
+
+  <!-- TODO: Eliminate this by compiling the necessary message definitions into jackal_base. -->
+  <node pkg="rosserial_python" type="message_info_service.py" name="rosserial_message_info" />
+
+  <!-- Translate Sentence messages from the MCU to NavSatFix messages -->
+  <node pkg="nmea_navsat_driver" type="nmea_topic_driver" name="nmea_topic_driver" ns="navsat" />
+
+  <rosparam command="load" file="$(find jackal_control)/config/control.yaml" />
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+        args="jackal_joint_publisher jackal_velocity_controller" />
+
+  </launch>

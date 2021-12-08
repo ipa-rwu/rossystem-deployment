@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="enable_ekf" default="$(optenv ENABLE_EKF true)"/>
+
+  <group if="$(arg enable_ekf)" >
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+      <rosparam command="load" file="$(find jackal_control)/config/robot_localization.yaml" />
+    </node>
+
+    <group if="$(optenv JACKAL_GX5_IMU 0)">
+      <!-- Optionally load the configuration for the secondary GX5-family IMU -->
+      <rosparam command="load" file="$(find jackal_control)/config/robot_localization_gx5.yaml" />
+    </group>
+  </group>
+
+</launch>
