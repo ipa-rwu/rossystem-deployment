@@ -1,0 +1,24 @@
+version: "3.3"
+networks:
+  ros:
+    driver: bridge
+services:
+  ros-master:
+    image: ros:noetic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+
+  test_joystick_noetic_joystick_teleop:
+    image: "test_joystick_noetic_joystick_teleop:latest"
+    depends_on:
+      - ros-master
+    environment:
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=joystick_teleop"
+    networks:
+      - ros
+    devices:
+      - "/dev/input/js0:/dev/input/js0"
+    command: stdbuf -o L roslaunch test_joystick_joystick_teleop joystick_teleop.launch --wait
+
