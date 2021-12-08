@@ -1,18 +1,17 @@
 RosSystem { Name 'agriculture_robot_sprint3' 
-RosComponents ( 
+RosComponents (
 	ComponentInterface { name joy_node NameSpace bluetooth_teleop FromRosNode "joy.joy_node.joy_node" 
-      RosPublishers { 
-      	RosPublisher "bluetooth_teleop/joy" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.joy" }, 
-      	RosPublisher "bluetooth_teleop/diagnostics" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.diagnostics" }} 
-      RosSubscribers { 
-      	RosSubscriber "bluetooth_teleop/joy/set_feedback" { ns bluetooth_teleop RefSubscriber "joy.joy_node.joy_node.joy/set_feedback" }}
-      RosParameters { 
-      	RosParameter "bluetooth_teleop/joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/dev" } , 
-      	RosParameter "bluetooth_teleop/joy_node/deadzone" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/deadzone" } , 
-      	RosParameter "bluetooth_teleop/joy_node/autorepeat_rate" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/autorepeat_rate" }
-      }},
+    RosPublishers { 
+        RosPublisher "joy" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.joy" },
+        RosPublisher "diagnostics" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.diagnostics" }} 
+    RosSubscribers { 
+        RosSubscriber "joy/set_feedback" { ns bluetooth_teleop RefSubscriber "joy.joy_node.joy_node.joy/set_feedback" }}
+    RosParameters {
+        RosParameter "joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.dev" value "/dev/input/ps4"} ,
+        RosParameter "joy_node/deadzone" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.deadzone" value 0.1} ,
+        RosParameter "joy_node/autorepeat_rate" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.autorepeat_rate" value 20}}},
     ComponentInterface { name teleop_twist_joy NameSpace bluetooth_teleop FromRosNode "teleop_twist_joy.teleop_node.teleop_node" 
-      RosPublishers {
+      RosPublishers { 
       	RosPublisher "bluetooth_teleop/cmd_vel" { ns bluetooth_teleop RefPublisher "teleop_twist_joy.teleop_node.teleop_node.cmd_vel" }} 
       RosSubscribers { 
       	RosSubscriber "bluetooth_teleop/joy" { ns bluetooth_teleop RefSubscriber "teleop_twist_joy.teleop_node.teleop_node.joy" }}
@@ -84,10 +83,10 @@ RosComponents (
       	RosServiceServer "controller_manager/list_controller_types" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/list_controller_types" } , 
       	RosServiceServer "controller_manager/unload_controller" { RefServer "jackal_base.jackal_node.jackal_node.controller_manager/unload_controller" }}
       RosParameters { 
-      	RosParameter "require/publishers" { RefParameter "jackal_base.jackal_node.jackal_node.require/publishers" } , 
-      	RosParameter "require/subscribers" { RefParameter "jackal_base.jackal_node.jackal_node.require/subscribers" } , 
-      	RosParameter wireless_interface { RefParameter "jackal_base.jackal_node.jackal_node.wireless_interface" } , 
-      	RosParameter port { RefParameter "jackal_base.jackal_node.jackal_node.port" }} } , 
+          RosParameter "require/publishers" { RefParameter "jackal_base.jackal_node.jackal_node.require/publishers" value {"status", "feedback", "imu/data_raw", "navsat/nmea_sentence"} },
+          RosParameter "require/subscribers" { RefParameter "jackal_base.jackal_node.jackal_node.require/subscribers" value {"cmd_drive", "wifi_connected" }} ,
+          RosParameter "wireless_interface" { RefParameter "jackal_base.jackal_node.jackal_node.wireless_interface" value "wlp2s0"} ,
+          RosParameter "port" { RefParameter "jackal_base.jackal_node.jackal_node.port" value "/dev/jackal"}}},
 	ComponentInterface { name  nmea_topic_driver NameSpace navsat FromRosNode "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver" 
       RosPublishers { 
       	RosPublisher "navsat/time_reference" { ns navsat RefPublisher "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver.time_reference" } , 
@@ -128,12 +127,12 @@ RosComponents (
       	RosSubscriber e_stop { RefSubscriber "twist_mux.twist_mux.twist_mux.e_stop" } , 
       	RosSubscriber cmd_vel { RefSubscriber "twist_mux.twist_mux.twist_mux.cmd_vel" }}
             RosParameters {
-                RosParameter '/twist_mux/locks' {RefParameter "twist_mux.twist_mux.twist_mux./twist_mux/locks" value {
-                	{'topic' { value 'e_stop'}}, 
+                RosParameter '/twist_mux/locks' {RefParameter "twist_mux.twist_mux.twist_mux.locks" value {
+                	{{'topic' { value 'e_stop'}}, 
                 	{ 'priority' { value 255 }},
                 	{'name' { value 'e_stop'}},
-                	{ 'timeout' { value 0.0}}}},
-                RosParameter '/twist_mux/topics' {RefParameter "twist_mux.twist_mux.twist_mux./twist_mux/topics" value {
+                	{ 'timeout' { value 0.0}}}}},
+                RosParameter '/twist_mux/topics' {RefParameter "twist_mux.twist_mux.twist_mux.topics" value {
 					{{'topic' { value 'joy_teleop/cmd_vel'}},{ 'priority'  { value 10}},{ 'name'  { value 'joy'}},{ 'timeout'  { value 0.5}}},
 					{{'topic'  { value 'bluetooth_teleop/cmd_vel'}},{ 'priority'  { value 9}},{ 'name'  { value 'bt_joy'}},{ 'timeout'  { value 0.5}}}, 
 					{{'topic'  { value 'twist_marker_server/cmd_vel'}},{ 'priority'  { value 8}},{ 'name'  { value 'interactive_marker'}},{ 'timeout'  { value 0.5}}}, 
@@ -141,7 +140,7 @@ RosComponents (
  
 
       TopicConnections { 
-      	TopicConnection "bluetooth_teleop/joy" { From ( "joy_node.bluetooth_teleop/joy" ) To ( "teleop_twist_joy.bluetooth_teleop/joy" ) } , 
+      	TopicConnection "bluetooth_teleop/joy" { From ( "joy_node.joy" ) To ( "teleop_twist_joy.bluetooth_teleop/joy" ) } , 
       	TopicConnection "bluetooth_teleop/cmd_vel" { From ( "teleop_twist_joy.bluetooth_teleop/cmd_vel" ) To ( "twist_mux.bluetooth_teleop/cmd_vel" ) } , 
       	TopicConnection joint_states { From ( "jackal_node.joint_states" ) To ( "robot_state_publisher.joint_states" ) } , 
       	TopicConnection "navsat/nmea_sentence" { From ( "jackal_node.navsat/nmea_sentence" ) To ( "nmea_topic_driver.navsat/nmea_sentence" ) } , 
