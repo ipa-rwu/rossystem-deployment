@@ -1,0 +1,5 @@
+version: "3.3"
+services:
+  communication_foxy:
+    image: "communication_foxy:latest"
+    command: stdbuf -o L ros2 launch communication communication.launch.py
