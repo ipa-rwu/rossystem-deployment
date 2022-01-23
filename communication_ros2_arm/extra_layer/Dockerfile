@@ -2,7 +2,7 @@
 ARG SUFFIX=
 ARG BUILDER_SUFFIX=:ros2
 ARG PREFIX=
-ARG FROM_IMAGE=arm32v7/ros:foxy
+ARG FROM_IMAGE=arm64v8/ros:foxy-ros-core
 FROM $FROM_IMAGE as base
 FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
