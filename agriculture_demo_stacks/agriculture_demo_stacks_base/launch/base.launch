@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="jackal_base" type="jackal_node" name="jackal_node" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="nmea_navsat_driver" type="nmea_topic_driver" name="nmea_topic_driver" ns="navsat" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="controller_manager" type="spawner" name="controller_spawner" cwd="node" respawn="false" output="screen">
+  </node>
+
+</launch>

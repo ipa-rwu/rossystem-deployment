@@ -1,8 +1,0 @@
-PackageSet {
-  CatkinPackage image_proc {
-    FromGitRepo "https://github.com/ros-perception/image_pipeline" 
-    Artifact image_proc {
-      Node { name image_proc
-        Parameters {
-          Parameter { name 'queue_size' type Integer }}}
-}}}

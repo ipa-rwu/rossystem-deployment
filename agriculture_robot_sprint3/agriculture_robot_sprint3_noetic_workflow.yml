@@ -52,7 +52,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./agriculture_robot_sprint3/extra_layer
+          context: agriculture_robot_sprint3/extra_layer
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -67,6 +67,7 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+  
   agriculture_robot_sprint3_noetic:
     runs-on: ubuntu-latest
     needs: extra_layer_agriculture_robot_sprint3_noetic
@@ -112,7 +113,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./agriculture_robot_sprint3
+          context: agriculture_robot_sprint3
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}

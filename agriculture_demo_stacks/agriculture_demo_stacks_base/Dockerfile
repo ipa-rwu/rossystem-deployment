@@ -1,15 +1,14 @@
 # syntax=docker/dockerfile:experimental
 ARG SUFFIX=
-ARG BUILDER_SUFFIX=:ros2
+ARG BUILDER_SUFFIX=:ros1
 ARG PREFIX=
-FROM ${PREFIX}extra_layer_communication_stacks_publisher_stack_foxy${SUFFIX} as base
+FROM ${PREFIX}extra_layer_agriculture_demo_stacks_base_noetic${SUFFIX} as base
 FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
 FROM base as build
-COPY . /root/ws/src/communication_stacks_publisher_stack_ros2/
+COPY . /root/ws/src/agriculture_demo_stacks_base/
 RUN --mount=type=bind,from=builder,target=/builder \
     apt-get update -qq && \
-    /builder/workspace.bash builder_setup && \
     /builder/workspace.bash build_workspace /root/ws && \
     rm -rf /var/lib/apt/lists/*
 
@@ -39,4 +38,4 @@ RUN --mount=type=bind,from=builder,target=/builder --mount=type=bind,target=/roo
 COPY --from=install /opt/ros/$ROS_DISTRO /opt/ros/$ROS_DISTRO
 
 FROM deploy as launch
-CMD ["ros2", "launch", "communication_stacks_publisher_stack", "publisher_stack.launch.py"]
+CMD ["roslaunch", "agriculture_demo_stacks_base", "base.launch"]

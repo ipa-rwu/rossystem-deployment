@@ -1,4 +1,0 @@
-ComponentInterface { name urg_node
-	FromRosNode "urg_node.urg_node.urg_node"
-	
-}

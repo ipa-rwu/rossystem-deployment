@@ -1,10 +1,63 @@
 version: "3.3"
+networks:
+  communication-stacks-network:
+    external: false
+    driver: "bridge"
 services:
-  communication_stacks_foxy_publisher_stack:
-    image: "communication_stacks_foxy_publisher_stack:latest"
+  extra_layer_communication_stacks_publisher_stack_foxy:
+    image: inspiron:5000/extra_layer_communication_stacks_publisher_stack_foxy:latest
+    build:
+      context: communication_stacks_publisher_stack/extra_layer
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    profiles:
+      - dependencies
+
+  communication_stacks_publisher_stack_foxy:
+    image: inspiron:5000/communication_stacks_publisher_stack_foxy:latest
+    build:
+      context: communication_stacks_publisher_stack
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    depends_on:
+      - extra_layer_communication_stacks_publisher_stack_foxy
+    environment:
+      - ROS_DOMAIN_ID=1
+    profiles:
+      - execute
+    networks:
+      - communication-stacks-network
     command: stdbuf -o L ros2 launch communication_stacks_publisher_stack publisher_stack.launch.py
 
-  communication_stacks_foxy_subscriber_stack:
-    image: "communication_stacks_foxy_subscriber_stack:latest"
-    command: stdbuf -o L ros2 launch communication_stacks_subscriber_stack subscriber_stack.launch.py
+  extra_layer_communication_stacks_subscriber_stack_foxy:
+    image: inspiron:5000/extra_layer_communication_stacks_subscriber_stack_foxy:latest
+    build:
+      context: communication_stacks_subscriber_stack/extra_layer
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    profiles:
+      - dependencies
 
+  communication_stacks_subscriber_stack_foxy:
+    image: inspiron:5000/communication_stacks_subscriber_stack_foxy:latest
+    build:
+      context: communication_stacks_subscriber_stack
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    depends_on:
+      - extra_layer_communication_stacks_subscriber_stack_foxy
+    environment:
+      - ROS_DOMAIN_ID=1
+    profiles:
+      - execute
+    networks:
+      - communication-stacks-network
+    command: stdbuf -o L ros2 launch communication_stacks_subscriber_stack subscriber_stack.launch.py

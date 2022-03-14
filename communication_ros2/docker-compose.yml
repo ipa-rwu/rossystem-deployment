@@ -1,5 +1,36 @@
 version: "3.3"
+networks:
+  communication-network:
+    external: false
+    driver: "bridge"
 services:
+  extra_layer_communication_foxy:
+    image: "inspiron:5000/extra_layer_communication_foxy:latest"
+    build:
+      context: ./extra_layer
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    profiles:
+      - dependencies
+
   communication_foxy:
-    image: "communication_foxy:latest"
+    image: inspiron:5000/communication_foxy:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    depends_on:
+      - extra_layer_communication_foxy
+    environment:
+      - ROS_DOMAIN_ID=1
+    profiles:
+      - execute
+    networks:
+      - communication-network
     command: stdbuf -o L ros2 launch communication communication.launch.py
+
+

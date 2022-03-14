@@ -8,7 +8,7 @@ env:
   SUFFIX: ""
   BUILDER_SUFFIX: ros2
 jobs:
-  extra_layer_communication_stacks_foxy_publisher_stack:
+  extra_layer_communication_stacks_publisher_stack_foxy:
     runs-on: ubuntu-latest
     steps:
       -
@@ -52,7 +52,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./communication_stacks_ros2/communication_stacks_publisher_stack/extra_layer
+          context: communication_stacks_ros2/communication_stacks_publisher_stack/extra_layer
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -67,9 +67,10 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-  communication_stacks_foxy_publisher_stack:
+
+  communication_stacks_publisher_stack_foxy:
     runs-on: ubuntu-latest
-    needs: extra_layer_communication_stacks_foxy_publisher_stack
+    needs: extra_layer_communication_stacks_publisher_stack_foxy
     steps:
       -
         name: Checkout
@@ -112,7 +113,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./communication_stacks_ros2/communication_stacks_publisher_stack
+          context: communication_stacks_ros2/communication_stacks_publisher_stack
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -127,7 +128,8 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-  extra_layer_communication_stacks_foxy_subscriber_stack:
+
+  extra_layer_communication_stacks_subscriber_stack_foxy:
     runs-on: ubuntu-latest
     steps:
       -
@@ -171,7 +173,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./communication_stacks_ros2/communication_stacks_subscriber_stack/extra_layer
+          context: communication_stacks_ros2/communication_stacks_subscriber_stack/extra_layer
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -186,9 +188,10 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-  communication_stacks_foxy_subscriber_stack:
+
+  communication_stacks_subscriber_stack_foxy:
     runs-on: ubuntu-latest
-    needs: extra_layer_communication_stacks_foxy_subscriber_stack
+    needs: extra_layer_communication_stacks_subscriber_stack_foxy
     steps:
       -
         name: Checkout
@@ -231,7 +234,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./communication_stacks_ros2/communication_stacks_subscriber_stack
+          context: communication_stacks_ros2/communication_stacks_subscriber_stack
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}

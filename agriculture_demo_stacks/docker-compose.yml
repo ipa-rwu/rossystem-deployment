@@ -1,0 +1,81 @@
+version: "3.3"
+networks:
+  agriculture-demo-stacks-network:
+    external: false
+    driver: "bridge"
+services:
+  ros-master:
+    image: ros:noetic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - agriculture-demo-stacks-network
+  extra_layer_agriculture_demo_stacks_base_noetic:
+    image: inspiron:5000/extra_layer_agriculture_demo_stacks_base_noetic:latest
+    build:
+      context: agriculture_demo_stacks_base/extra_layer
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    profiles:
+      - dependencies
+
+  agriculture_demo_stacks_base_noetic:
+    image: inspiron:5000/agriculture_demo_stacks_base_noetic:latest
+    build:
+      context: agriculture_demo_stacks_base
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    depends_on:
+      - ros-master
+      - extra_layer_agriculture_demo_stacks_base_noetic
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+      - ROS_HOSTNAME=agriculture_demo_stacks_base_noetic
+    profiles:
+      - execute
+    networks:
+      - agriculture-demo-stacks-network
+    command: stdbuf -o L roslaunch agriculture_demo_stacks_base base.launch --wait
+
+  agriculture_demo_stacks_teleop_noetic:
+    image: inspiron:5000/agriculture_demo_stacks_teleop_noetic:latest
+    build:
+      context: agriculture_demo_stacks_teleop
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    depends_on:
+      - ros-master
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+      - ROS_HOSTNAME=agriculture_demo_stacks_teleop_noetic
+    profiles:
+      - execute
+    networks:
+      - agriculture-demo-stacks-network
+    command: stdbuf -o L roslaunch agriculture_demo_stacks_teleop teleop.launch --wait
+
+  agriculture_demo_stacks_others_noetic:
+    image: inspiron:5000/agriculture_demo_stacks_others_noetic:latest
+    build:
+      context: agriculture_demo_stacks_others
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    depends_on:
+      - ros-master
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+      - ROS_HOSTNAME=agriculture_demo_stacks_others_noetic
+    profiles:
+      - execute
+    networks:
+      - agriculture-demo-stacks-network
+    command: stdbuf -o L roslaunch agriculture_demo_stacks_others others.launch --wait
+
+

@@ -2,7 +2,7 @@
 ARG SUFFIX=
 ARG BUILDER_SUFFIX=:ros2
 ARG PREFIX=
-FROM ${PREFIX}extra_layer_communication_stacks_foxy_subscriber_stack${SUFFIX} as base
+FROM ${PREFIX}extra_layer_communication_stacks_subscriber_stack_foxy${SUFFIX} as base
 FROM ${PREFIX}builder${BUILDER_SUFFIX} as builder
 
 FROM base as build

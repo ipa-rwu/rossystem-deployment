@@ -1,21 +1,45 @@
 version: "3.3"
 networks:
-  ros:
-    driver: bridge
+  agriculture-robot-sprint3-network:
+    external: false
+    driver: "bridge"
 services:
   ros-master:
     image: ros:noetic-ros-core
     command: stdbuf -o L roscore
     networks:
-      - ros
+      - agriculture-robot-sprint3-network
+  extra_layer_agriculture_robot_sprint3_noetic:
+    image: "inspiron:5000/extra_layer_agriculture_robot_sprint3_noetic:latest"
+    build:
+      context: ./extra_layer
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
+    profiles:
+      - dependencies
 
   agriculture_robot_sprint3_noetic:
-    image: "agriculture_robot_sprint3_noetic:latest"
+    image: inspiron:5000/agriculture_robot_sprint3_noetic:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - PREFIX=inspiron:5000/
+        - SUFFIX=:latest
     depends_on:
       - ros-master
+      - extra_layer_agriculture_robot_sprint3_noetic
     environment:
-      - "ROS_MASTER_URI=http://ros-master:11311"
-      - "ROS_HOSTNAME=agriculture_robot_sprint3"
+      - ROS_MASTER_URI=http://ros-master:11311
+      - ROS_HOSTNAME=agriculture_robot_sprint3_noetic
+    profiles:
+      - execute
     networks:
-      - ros
+      - agriculture-robot-sprint3-network
+    devices:
+      - "/dev/joy0:/dev/joy0"
     command: stdbuf -o L roslaunch agriculture_robot_sprint3 agriculture_robot_sprint3.launch --wait
+
+

@@ -21,6 +21,7 @@
   <exec_depend>nmea_navsat_driver</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>rosserial_python</exec_depend>
+  <exec_depend>rslidar_sdk</exec_depend>
   <exec_depend>interactive_marker_twist_server</exec_depend>
   <exec_depend>twist_mux</exec_depend>
   <!--test_depend>roslaunch</test_depend-->

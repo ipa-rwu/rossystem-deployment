@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" cwd="node" respawn="false" output="screen">
+  </node>
+
+</launch>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="joy" type="joy_node" name="joy_node" ns="bluetooth_teleop" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy" ns="bluetooth_teleop" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" cwd="node" respawn="false" output="screen">
+  </node>
+
+</launch>

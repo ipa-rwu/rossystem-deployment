@@ -1,8 +1,0 @@
-PackageSet{
-    Package jackal_msgs{ Specs { 
-      TopicSpec Drive{ message { int8 MODE_VELOCITY=0 int8 MODE_PWM=1 int8 MODE_EFFORT=2 int8 MODE_NONE=-1 int8 mode int8 LEFT=0 int8 RIGHT=1 float32[] drivers }},
-      TopicSpec DriveFeedback{ message { float32 current float32 duty_cycle float32 bridge_temperature float32 motor_temperature float32 measured_velocity float32 measured_travel bool driver_fault }},
-      TopicSpec Feedback{ message { Header header DriveFeedback[] drivers float32 pcb_temperature float32 mcu_temperature int8 commanded_mode int8 actual_mode }},
-      TopicSpec Status{ message { Header header string hardware_id duration mcu_uptime duration connection_uptime bool drivers_active bool driver_external_stop_present bool driver_external_stop_stopped float32 measured_battery float32 measured_12v float32 measured_5v float32 drive_current float32 user_current float32 computer_current float32 total_current float32 total_current_peak float64 total_power_consumed }}
-    }}
-  }

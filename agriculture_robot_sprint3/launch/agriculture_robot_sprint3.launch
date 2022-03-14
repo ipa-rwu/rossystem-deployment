@@ -11,8 +11,8 @@
   </material>
   <material name="light_grey">
     <color rgba="0.4 0.4 0.4 1.0"/>
-  </material> 
-  <material name="yellow"> 
+  </material>
+  <material name="yellow">
     <color rgba="0.8 0.8 0.0 1.0"/>
   </material>
   <material name="black">
@@ -255,6 +255,7 @@
   <node pkg="joy" type="joy_node" name="joy_node" ns="bluetooth_teleop" cwd="node" respawn="false" output="screen">
     <remap from='diagnostics' to='bluetooth_teleop/diagnostics' />
     <remap from='joy/set_feedback' to='bluetooth_teleop/joy/set_feedback' />
+<param name="joy_node/dev" value="/dev/joy0" />
   </node>
   <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy" ns="bluetooth_teleop" cwd="node" respawn="false" output="screen">
   </node>
@@ -280,6 +281,8 @@
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" cwd="node" respawn="false" output="screen">
   </node>
   <node pkg="rosserial_python" type="message_info_service" name="rosserial_message_info" cwd="node" respawn="false" output="screen">
+  </node>
+  <node pkg="rslidar_sdk" type="rslidar_sdk_node" name="rslidar_sdk_node" cwd="node" respawn="false" output="screen">
   </node>
   <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" cwd="node" respawn="false" output="screen">
   </node>

@@ -1,9 +1,0 @@
-PackageSet{
-    Package rosserial_msgs{ Specs { 
-      TopicSpec Log{ message { uint8 ROSDEBUG=0 uint8 INFO=1 uint8 WARN=2 uint8 ERROR=3 uint8 FATAL=4 uint8 level string msg }},
-      TopicSpec TopicInfo{ message { uint16 ID_PUBLISHER=0 uint16 ID_SUBSCRIBER=1 uint16 ID_SERVICE_SERVER=2 uint16 ID_SERVICE_CLIENT=4 uint16 ID_PARAMETER_REQUEST=6 uint16 ID_LOG=7 uint16 ID_TIME=10 uint16 ID_TX_STOP=11 uint16 topic_id string topic_name string message_type string md5sum int32 buffer_size }},
-      ServiceSpec RequestMessageInfo{ request { string type } response { string md5 string definition } },
-      ServiceSpec RequestParam{ request { string name } response { int32[] ints float32[] floats string[] strings } },
-      ServiceSpec RequestServiceInfo{ request { string service } response { string service_md5 string request_md5 string response_md5 } }
-    }}
-  }

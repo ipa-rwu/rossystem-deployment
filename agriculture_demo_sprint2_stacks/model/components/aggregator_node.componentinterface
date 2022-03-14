@@ -1,4 +1,0 @@
-ComponentInterface { name aggregator_node
-	FromRosNode "diagnostic_aggregator.aggregator_node.aggregator_node"
-	
-}

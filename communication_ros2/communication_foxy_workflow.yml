@@ -52,7 +52,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./communication_ros2/extra_layer
+          context: communication_ros2/extra_layer
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -67,6 +67,7 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+  
   communication_foxy:
     runs-on: ubuntu-latest
     needs: extra_layer_communication_foxy
@@ -112,7 +113,7 @@ jobs:
         name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-          context: ./communication_ros2
+          context: communication_ros2
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
