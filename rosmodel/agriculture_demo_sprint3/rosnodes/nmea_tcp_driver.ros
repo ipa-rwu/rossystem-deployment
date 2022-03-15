@@ -1,0 +1,23 @@
+PackageSet {
+	CatkinPackage nmea_navsat_drivers {
+//	FromGitRepo "https://gitlab.cc-asp.fraunhofer.de/ipa323/outdoor_nav/ipa_jackal_sensortools"
+	Artifact nmea_tcp_driver {
+		Node { name nmea_tcp_driver
+			Publishers {
+				Publisher {name "error_statistics" message "nmea_navsat_driver.NavSatErrorStatistics"},
+				Publisher {name "fix" message "sensor_msgs.NavSatFix"},
+				Publisher {name "heading" message "nmea_navsat_driver.NavSatHeading"},
+				Publisher {name "heading_only" message "nmea_navsat_driver.NavSatHeadingOnly"},
+				Publisher {name "info" message "nmea_navsat_driver.NavSatInfo"},
+				Publisher {name "orientation" message "nmea_navsat_driver.NavSatOrientation"},
+				Publisher {name "time_reference" message "sensor_msgs.TimeReference"},
+				Publisher {name "vel" message "geometry_msgs.TwistStamped"}
+			}
+	        Parameters {
+	          Parameter { name 'frame_id' type String },
+	          Parameter { name 'ip' type String },
+	          Parameter { name 'port' type Integer },
+	          Parameter { name 'message_length' type Integer }}}
+		}
+	}
+}

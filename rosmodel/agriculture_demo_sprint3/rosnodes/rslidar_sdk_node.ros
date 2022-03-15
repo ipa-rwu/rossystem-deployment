@@ -1,0 +1,11 @@
+PackageSet {
+	CatkinPackage rslidar_sdk {
+//	FromGitRepo "https://gitlab.cc-asp.fraunhofer.de/ipa323/outdoor_nav/ipa_jackal_sensortools"
+	Artifact rslidar_sdk_node {
+		Node { name rslidar_sdk_node
+			Publishers {
+				Publisher {name "rslidar_points" message "sensor_msgs.PointCloud2"}
+			}
+		}
+		}
+}}

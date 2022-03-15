@@ -1,0 +1,18 @@
+RosSystem { Name 'agriculture_demo_stacks'  
+	RosComponentStacks (
+		ComponentStack { name base
+			RosComponents (
+			     ComponentInterface { name jackal_node FromRosNode "jackal_base.jackal_node.jackal_node" },
+			     ComponentInterface { name nmea_topic_driver NameSpace navsat FromRosNode "nmea_navsat_driver.nmea_topic_driver.nmea_topic_driver" } ,
+			     ComponentInterface { name  controller_spawner FromRosNode "controller_manager.spawner.controller_spawner" })},
+		ComponentStack { name teleop 
+			RosComponents (
+			     ComponentInterface { name twist_mux FromRosNode "twist_mux.twist_mux.twist_mux" },
+			     ComponentInterface { name joy_node NameSpace bluetooth_teleop FromRosNode "joy.joy_node.joy_node" },
+			     ComponentInterface { name teleop_twist_joy NameSpace bluetooth_teleop FromRosNode "teleop_twist_joy.teleop_node.teleop_node" } , 
+			     ComponentInterface { name twist_marker_server FromRosNode "interactive_marker_twist_server.marker_server.twist_marker_server"})},
+		ComponentStack { name others 
+			RosComponents (
+			     ComponentInterface { name  imu_filter FromRosNode "imu_filter_madgwick.imu_filter_node.imu_filter_node" } ,
+			     ComponentInterface { name  ekf_localization FromRosNode "robot_localization.ekf_localization_node.ekf_localization_node" })}
+)}

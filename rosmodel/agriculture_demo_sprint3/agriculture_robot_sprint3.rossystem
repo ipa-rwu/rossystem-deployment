@@ -1,5 +1,5 @@
 RosSystem { Name 'agriculture_robot_sprint3' 
-RosComponents ( 
+RosComponents (
 	ComponentInterface { name joy_node NameSpace bluetooth_teleop FromRosNode "joy.joy_node.joy_node" 
       RosPublishers { 
       	RosPublisher "bluetooth_teleop/joy" { ns bluetooth_teleop RefPublisher "joy.joy_node.joy_node.joy" }, 
@@ -7,16 +7,16 @@ RosComponents (
       RosSubscribers { 
       	RosSubscriber "bluetooth_teleop/joy/set_feedback" { ns bluetooth_teleop RefSubscriber "joy.joy_node.joy_node.joy/set_feedback" }}
       RosParameters { 
-      	RosParameter "bluetooth_teleop/joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/dev" } , 
+      	RosParameter "bluetooth_teleop/joy_node/dev" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/dev" value "/dev/joy0"} , 
       	RosParameter "bluetooth_teleop/joy_node/deadzone" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/deadzone" } , 
       	RosParameter "bluetooth_teleop/joy_node/autorepeat_rate" { ns bluetooth_teleop RefParameter "joy.joy_node.joy_node.joy_node/autorepeat_rate" }
       }},
     ComponentInterface { name teleop_twist_joy NameSpace bluetooth_teleop FromRosNode "teleop_twist_joy.teleop_node.teleop_node" 
-      RosPublishers {
+      RosPublishers { 
       	RosPublisher "bluetooth_teleop/cmd_vel" { ns bluetooth_teleop RefPublisher "teleop_twist_joy.teleop_node.teleop_node.cmd_vel" }} 
       RosSubscribers { 
       	RosSubscriber "bluetooth_teleop/joy" { ns bluetooth_teleop RefSubscriber "teleop_twist_joy.teleop_node.teleop_node.joy" }}
-      RosParameters {
+      RosParameters { 
       	RosParameter "bluetooth_teleop/enable_button" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.enable_button" } , 
       	RosParameter "bluetooth_teleop/scale_angular" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.scale_angular" } , 
       	RosParameter "bluetooth_teleop/enable_turbo_button" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.enable_turbo_button" } , 
@@ -26,7 +26,7 @@ RosComponents (
       	RosParameter "bluetooth_teleop/axis_linear" { ns bluetooth_teleop RefParameter "teleop_twist_joy.teleop_node.teleop_node.axis_linear" }}} ,
     ComponentInterface { name controller_spawner FromRosNode "controller_manager.spawner.controller_spawner" } ,
     ComponentInterface { name diagnostic_aggregator FromRosNode "diagnostic_aggregator.aggregator_node.aggregator_node" 
-      RosPublishers {
+      RosPublishers { 
       	RosPublisher "/diagnostics_agg" { RefPublisher "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics_agg" } , 
       	RosPublisher "/diagnostics_toplevel_state" { RefPublisher "diagnostic_aggregator.aggregator_node.aggregator_node./diagnostics_toplevel_state" }} 
       RosSubscribers { 
@@ -53,7 +53,7 @@ RosComponents (
       	RosParameter mag_bias_x { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_x" } , 
       	RosParameter mag_bias_y { RefParameter "imu_filter_madgwick.imu_filter_node.imu_filter_node.mag_bias_y" }}} ,
     ComponentInterface { name jackal_node FromRosNode "jackal_base.jackal_node.jackal_node" 
-      RosPublishers {
+      RosPublishers { 
       	RosPublisher cmd_drive { RefPublisher "jackal_base.jackal_node.jackal_node.cmd_drive" } , 
       	RosPublisher wifi_connected { RefPublisher "jackal_base.jackal_node.jackal_node.wifi_connected" } , 
       	RosPublisher feedback { RefPublisher "jackal_base.jackal_node.jackal_node.feedback" } , 
@@ -107,6 +107,9 @@ RosComponents (
       RosSubscribers { 
       	RosSubscriber joint_states { RefSubscriber "robot_state_publisher.robot_state_publisher.robot_state_publisher.joint_states" }} } ,
     ComponentInterface { name rosserial_message_info FromRosNode "rosserial_python.message_info_service.rosserial_message_info" } ,
+    ComponentInterface { name rslidar_sdk_node FromRosNode "rslidar_sdk.rslidar_sdk_node.rslidar_sdk_node" 
+      RosPublishers { 
+      	RosPublisher rslidar_points { RefPublisher "rslidar_sdk.rslidar_sdk_node.rslidar_sdk_node.rslidar_points" }} } ,
     ComponentInterface { name twist_marker_server FromRosNode "interactive_marker_twist_server.marker_server.marker_server" 
       RosPublishers { 
       	RosPublisher cmd_vel { RefPublisher "interactive_marker_twist_server.marker_server.marker_server.cmd_vel" } , 
@@ -160,8 +163,8 @@ RosComponents (
   </material>
   <material name="light_grey">
     <color rgba="0.4 0.4 0.4 1.0"/>
-  </material> 
-  <material name="yellow"> 
+  </material>
+  <material name="yellow">
     <color rgba="0.8 0.8 0.0 1.0"/>
   </material>
   <material name="black">

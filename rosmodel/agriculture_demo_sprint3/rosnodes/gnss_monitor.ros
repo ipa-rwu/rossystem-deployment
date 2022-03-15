@@ -1,0 +1,17 @@
+PackageSet {
+	CatkinPackage nmea_navsat_drivers {
+//	FromGitRepo "https://gitlab.cc-asp.fraunhofer.de/ipa323/outdoor_nav/ipa_jackal_sensortools"
+	Artifact gnss_monitor {
+		Node { name gnss_monitor
+			Publishers {
+				Publisher {name "/diagnostics" message "diagnostic_msgs.DiagnosticArray"}
+			}
+			Subscribers {
+				Subscriber {name "error_statistics" message "nmea_navsat_driver.NavSatErrorStatistics"},
+				Subscriber {name "fix" message "sensor_msgs.NavSatFix"},
+				Subscriber {name "heading" message "nmea_navsat_driver.NavSatHeading"},
+				Subscriber {name "orientation" message "nmea_navsat_driver.NavSatOrientation"}
+			}
+		}
+		}
+}}

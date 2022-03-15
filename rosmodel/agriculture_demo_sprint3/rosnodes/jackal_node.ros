@@ -1,6 +1,6 @@
 PackageSet {
   CatkinPackage jackal_base {
-    FromGitRepo "https://github.com/ipa-rwu/jackal_robot.git:rwu/fix-noetic"
+    FromGitRepo "https://github.com/ipa-rwu/jackal_robot:rwu/fix-noetic" 
     Artifact jackal_node {
       Node { name jackal_node
         ServiceServers {
